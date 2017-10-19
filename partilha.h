@@ -78,6 +78,8 @@ public:
     Station(int max_spots, string localization);
 };
 
+//User
+
 class User
 {
     bool active;
@@ -86,6 +88,9 @@ class User
 
 public:
     User(string username);
+    string getName();
+    void addBike(Bike bk);
+    void removeBike();
 };
 
 class Member: public User
@@ -95,6 +100,7 @@ class Member: public User
 
 public:
     Member(string username);
+    double getPrice();
 
 };
 
