@@ -89,6 +89,7 @@ class User
 public:
     User(string username);
     string getName();
+    Station getClosestStation(); //Args still need to be discussed
     void addBike(Bike bk);
     void removeBike();
 };
@@ -96,7 +97,7 @@ public:
 class Member: public User
 {
     int total_monthly_time;
-    static double mensalidade;
+    static double price_month;
 
 public:
     Member(string username);
@@ -106,6 +107,7 @@ public:
 
 class Regular: public User
 {
+    static double price_hour;
 public:
     Regular(string username);
     double getPrice();

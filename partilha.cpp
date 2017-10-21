@@ -63,3 +63,8 @@ Member::Member(string username) : User(username)
 
 Regular::Regular(string username) : User(username) {}
 
+double Regular::getPrice()
+{
+    
+}
+
