@@ -65,6 +65,6 @@ Regular::Regular(string username) : User(username) {}
 
 double Regular::getPrice()
 {
-    
+
 }
 
