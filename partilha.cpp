@@ -32,6 +32,11 @@ Station::Station(int max_spots,string localization)
     available_bikes = empty_available_bikes;
 }
 
+void Station::Menu()
+{
+
+}
+
 //Class User
 
 User::User(string username)

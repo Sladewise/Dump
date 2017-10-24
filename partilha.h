@@ -76,6 +76,7 @@ class Station
 
 public:
     Station(int max_spots, string localization);
+    void Menu();
 };
 
 //User
