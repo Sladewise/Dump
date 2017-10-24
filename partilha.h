@@ -77,6 +77,7 @@ class Station
 public:
     Station(int max_spots, string localization);
     void Menu();
+    Bike findBike(string bike_id);
 };
 
 //User
