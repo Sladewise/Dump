@@ -3,49 +3,62 @@
 
 #include <iostream>
 #include <string>
+#include "Date.h"
 
 using namespace std;
 
+
+
+
+//////////////////////BIKE/////////////////////////////////
 class Bike
 {
-    string ID;
-    time_t time_start;
+	string ID;
+	Date start_date;
 
 public:
-
-    virtual double getPrice();
+	Bike(string ID, Date start_date);
+	virtual double getPrice() = 0;
 };
 
-class Urban_b: public Bike
+////////////////////URBAN BIKE/////////////////////////////
+class Urban_b : public Bike
 {
-    double price_hour;
+	double price_h; 
 
 public:
-    double getPrice();
+	Urban_b(string ID, Date start_date, double price_hour);
+	double getPrice();
 };
 
-class Urban_simple_b: public Bike
+/////////////////URBAN SIMPLE BIKE/////////////////////////
+class Urban_simple_b : public Bike
 {
-    double price_h;
+	double price_h;
 
 public:
-    double getPrice();
+	Urban_simple_b(string ID, Date start_date, double price_hour);
+	double getPrice();
 };
 
-class Race_b: public Bike
+/////////////////////RACE BIKE///////////////////////////
+class Race_b : public Bike
 {
-    double price_h;
+	double price_h;
 
 public:
-    double getPrice();
+	Race_b(string ID, Date start_date, double price_hour);
+	double getPrice();
 };
 
-class Child_b: public Bike
+///////////////////CHILD BIKE//////////////////////////////
+class Child_b : public Bike
 {
-    double price_h;
+	double price_h;
 
 public:
-    double getPrice();
+	Child_b(string ID, Date start_date, double price_hour);
+	double getPrice();
 };
 
 #endif //P1_BIKE_H
