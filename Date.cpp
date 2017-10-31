@@ -101,3 +101,17 @@ void Date::addHour(int h)
 	setHour(this->hour + h);
 
 }
+
+int Date::operator-( Date &date1)
+{
+	int subtraction_result= 0;
+
+
+	subtraction_result += 24 * (this->day - date1.getDay());
+	subtraction_result += (this->month - date1.getMonth()) * 744;
+	subtraction_result += this->hour - date1.getHour();
+
+
+	return subtraction_result;
+
+}

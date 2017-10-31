@@ -18,6 +18,7 @@ class Bike
 
 public:
 	Bike(string ID, Date start_date);
+	Date getDate();
 	virtual double getPrice() = 0;
 };
 
@@ -29,6 +30,7 @@ class Urban_b : public Bike
 public:
 	Urban_b(string ID, Date start_date, double price_hour);
 	double getPrice();
+
 };
 
 /////////////////URBAN SIMPLE BIKE/////////////////////////
