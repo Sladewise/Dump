@@ -1,7 +1,4 @@
 #include "Station.h"
-#include <iostream>
-#include "Bike.h"
-#include <vector>
 
 using namespace std;
 
@@ -19,7 +16,7 @@ void Station::Menu() const
 
 }
 
-bool findBike(Bike bike) const
+bool Station::findBike(Bike bike) const
 {
 
 }

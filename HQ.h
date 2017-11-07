@@ -10,8 +10,8 @@ using namespace std;
 
 class HQ
 {
-    vector<Member> members;
-    vector<User> active_users;
+    vector<Member *> members;
+    vector<User *> active_users;
     vector<Station> stations;
 
 public:
