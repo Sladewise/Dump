@@ -2,6 +2,8 @@
 
 using namespace std;
 
+//User
+
 User::User(string username)
 {
     Date null_date(1,1,0,0);
@@ -27,14 +29,16 @@ void User::removeBike()
     active = false;
 }
 
+//Member
+
 Member::Member(string username) : User(username)
 {
     total_monthly_time = 0;
 }
 
+//Regular
+
 Regular::Regular(string username) : User(username) {}
 
-double Regular::getPrice()
-{
 
-}
+

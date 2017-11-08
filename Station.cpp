@@ -11,13 +11,3 @@ Station::Station(int max_spots,string localization)
     available_bikes = empty_available_bikes;
 }
 
-void Station::Menu() const
-{
-
-}
-
-bool Station::findBike(Bike *bike) const
-{
-
-}
-
