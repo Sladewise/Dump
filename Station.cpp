@@ -4,7 +4,7 @@ using namespace std;
 
 Station::Station(int max_spots,string localization)
 {
-    vector<Bike> empty_available_bikes;
+    vector<Bike *> empty_available_bikes;
 
     no_max_spots = max_spots;
     position = localization;
@@ -16,7 +16,7 @@ void Station::Menu() const
 
 }
 
-bool Station::findBike(Bike bike) const
+bool Station::findBike(Bike *bike) const
 {
 
 }

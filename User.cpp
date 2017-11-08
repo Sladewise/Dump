@@ -1,11 +1,12 @@
 #include "User.h"
-#include <iostream>
-#include "Bike.h"
 
 using namespace std;
 
 User::User(string username)
 {
+    Date null_date(1,1,0,0);
+    Urban_simple_b *null_bike = new Urban_simple_b("00",null_date,0);
+    bike = null_bike;
     name = username;
     active = false;
 }
@@ -15,7 +16,7 @@ string User::getName()
     return name;
 }
 
-void User::addBike(Bike bk)
+void User::addBike(Bike *bk)
 {
     bike = bk;
     active = true;

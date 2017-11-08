@@ -1,8 +1,6 @@
 #ifndef P1_BIKE_H
 #define P1_BIKE_H
 
-#include <iostream>
-#include <string>
 #include <vector>
 #include "Date.h"
 
