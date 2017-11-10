@@ -1,4 +1,5 @@
 #include "User.h"
+#include "HQ.h"
 
 using namespace std;
 
@@ -13,15 +14,16 @@ User::User(string username)
     active = false;
 }
 
-string User::getName()
+string User::getName() const
 {
     return name;
 }
 
-void User::addBike(Bike *bk)
+void User::addBike(Bike *bk, HQ *hq)
 {
     bike = bk;
     active = true;
+	hq->addActiveUser(this);
 }
 
 void User::removeBike()
@@ -40,5 +42,15 @@ Member::Member(string username) : User(username)
 
 Regular::Regular(string username) : User(username) {}
 
+//Already Active User
 
+Already_Active_User::Already_Active_User(string name)
+{
+	this->name = name;
+}
+
+string Already_Active_User::getName() const
+{
+	return name;
+}
 

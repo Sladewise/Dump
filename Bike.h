@@ -1,5 +1,5 @@
-#ifndef P1_BIKE_H
-#define P1_BIKE_H
+#ifndef AEDA_P1_BIKE_H
+#define AEDA_P1_BIKE_H
 
 #include <vector>
 #include "Date.h"
@@ -62,4 +62,4 @@ public:
 	double getPrice();
 };
 
-#endif //P1_BIKE_H
+#endif

@@ -1,20 +1,25 @@
-#ifndef P1_USER_H
-#define P1_USER_H
+#ifndef AEDA_P1_USER_H
+#define AEDA_P1_USER_H
 
 #include "Bike.h"
 #include "Station.h"
+
+using namespace std;
+
+class HQ;
 
 class User
 {
     bool active;
     Bike *bike;
     string name;
+	pair <int, int> Localization;
 
 public:
     User(string username);
-    string getName();
-    Station getClosestStation(); //Args still need to be discussed
-    void addBike(Bike *bk);
+    string getName() const;
+    Station getClosestStation(vector<Station> vs, pair<int, int> loc); //Args still need to be discussed
+    void addBike(Bike *bk, HQ *hq);
     void removeBike();
 };
 
@@ -37,5 +42,14 @@ public:
     double getPrice();
 };
 
+class Already_Active_User
+{
+	string name;
 
-#endif //P1_USER_H
+public:
+	Already_Active_User(string name);
+	string getName() const;
+};
+
+#endif
+
