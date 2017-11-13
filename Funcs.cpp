@@ -2,7 +2,7 @@
 
 using namespace std;
 
-void Main_Menu()
+void Main_Menu(HQ hq)
 {
     int opt;
 
@@ -23,11 +23,11 @@ void Main_Menu()
         switch(opt)
         {
             case 1:
-                Bikes_Menu();
+                Bikes_Menu(hq);
                 break;
 
             case 2:
-                Station_Menu();
+                Station_Menu(hq);
                 break;
 
             case 3:
@@ -48,7 +48,7 @@ void Main_Menu()
     }while(opt != 5);
 }
 
-void Bikes_Menu()
+void Bikes_Menu(HQ hq)
 {
     int opt;
 
@@ -67,7 +67,7 @@ void Bikes_Menu()
         switch(opt)
         {
             case 1:
-
+				RentBike(hq);
                 break;
 
             case 2:
@@ -79,7 +79,7 @@ void Bikes_Menu()
     }while(opt != 2);
 }
 
-void Station_Menu()
+void Station_Menu(HQ hq)
 {
     int opt;
     do
@@ -97,7 +97,7 @@ void Station_Menu()
         switch(opt)
         {
             case 1:
-
+				Search_Station(hq);
                 break;
 
             case 2:
@@ -227,7 +227,7 @@ void RentBike(HQ hq)
 	}
 	
 	closest_station = u->getClosestStation(vs);
-	cout << "The nearest station with that type of bike is "
+	cout << "The nearest station with that type of bike (" << closest_station->getName() << ") is "
 		<< sqrt(pow(closest_station->getLocalization().first - u->getLocalization().first, 2)
 			+ pow(closest_station->getLocalization().second - u->getLocalization().second, 2))
 		<< "km away. Are you sure you want to continue? (y/n)\n";
@@ -255,6 +255,24 @@ void RentBike(HQ hq)
 	}
 	
 	return;
+}
+
+void Search_Station(HQ hq)
+{
+	string s_name;
+
+	cout << "Station name: ";
+	cin >> s_name;
+
+	while (cin.fail())
+	{
+		cin.clear();
+		cin.ignore(1000, '\n');
+		cout << "Invalid Input. Please try again.\n";
+		cin >> s_name;
+	}
+
+	hq.search_station(s_name);
 }
 
 

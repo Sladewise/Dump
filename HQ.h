@@ -26,6 +26,7 @@ public:
     int find_Member(string name); //Returns a pointer to the Member if it exists, else a pointer to a "null member"
     int find_ActiveUser(string name);  //Returns a pointer to an active user if it exists, else returns a pointer to a "null active user"
 	vector<Station *> find_bike_type(string type) const;
+	void search_station(string name) const;
 };
 
 #endif

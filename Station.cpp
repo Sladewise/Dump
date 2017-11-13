@@ -2,12 +2,12 @@
 
 using namespace std;
 
-Station::Station(int max_spots,string localization, int x, int y)
+Station::Station(int max_spots,string name, int x, int y)
 {
     vector<Bike *> empty_available_bikes;
 
     no_max_spots = max_spots;
-    position = localization;
+    this->name = name;
     available_bikes = empty_available_bikes;
 	Localization.first = x;
 	Localization.second = y;
@@ -30,5 +30,15 @@ bool Station::findBike(string type) const
 pair<int, int> Station::getLocalization() const
 {
 	return Localization;
+}
+
+string Station::getName() const
+{
+	return name;
+}
+
+int Station::getMaxSpots() const
+{
+	return no_max_spots;
 }
 
