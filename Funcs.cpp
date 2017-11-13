@@ -164,10 +164,12 @@ void InvalidInput(int n_op, int &op)
 
 void RentBike(HQ hq)
 {
-	string name;
+	string name, conf;
 	int opt, p_im;
 	unsigned int im;
-	vector<Station> vs;
+	vector<Station *> vs;
+	User *u;
+	Station *closest_station;
 
 	cout << "Username: ";
 	cin >> name;
@@ -178,7 +180,12 @@ void RentBike(HQ hq)
 	p_im = hq.find_Member(name);
 
 	if (p_im != -1)
+	{
 		im = p_im;
+		u = hq.getMembers()[p_im];
+	}
+	else
+		u = new Regular(name);
 
 	cout << "+------------------+\n"
 		<< "|   Type of bike   |\n"
@@ -212,6 +219,37 @@ void RentBike(HQ hq)
 			vs = hq.find_bike_type("RC");
 			break;
 	}
+	
+	closest_station = u->getClosestStation(vs);
+	cout << "The nearest station with that type of bike is "
+		<< sqrt(pow(closest_station->getLocalization().first - u->getLocalization().first, 2)
+			+ pow(closest_station->getLocalization().second - u->getLocalization().second, 2))
+		<< "km away. Are you sure you want to continue? (y/n)\n";
+
+	cin >> conf;
+
+	while (cin.fail() || (conf != "y" && conf != "n"))
+	{
+		cin.clear();
+		cin.ignore(1000, '\n');
+		cout << "Invalid input. Please try again.\n";
+		cin >> conf;
+	}
+
+	if (conf == "y")
+	{
+		u->setLocalization(closest_station->getLocalization().first, closest_station->getLocalization().second);
+
+		for (unsigned int i = 0; i < closest_station->getAvailableBikes().size(); i++)
+			//if (closest_station->getAvailableBikes()[i]->getID)
+				
+	}
+		
 }
+
+
+
+
+
 
 

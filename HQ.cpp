@@ -6,7 +6,7 @@ HQ::HQ()
 {
     vector<Member*> empty_members;
     vector<User*> empty_active_users;
-    vector <Station> empty_stations;
+    vector <Station *> empty_stations;
 
     members = empty_members;
     active_users = empty_active_users;
@@ -28,7 +28,7 @@ vector<Member *> HQ::getMembers() const
 	return members;
 }
 
-vector<Station> HQ::getStations() const
+vector<Station *> HQ::getStations() const
 {
 	return stations;
 }
@@ -51,16 +51,18 @@ int HQ::find_ActiveUser(string name)
 	return -1;
 }
 
-vector<Station> HQ::find_bike_type(string type) const
+vector<Station *> HQ::find_bike_type(string type) const
 {
-	vector<Station> confirmed_stations;
+	vector<Station *> confirmed_stations;
 	
 	for (unsigned int i = 0; i < stations.size(); i++)
-		if (stations[i].findBike(type))
+		if (stations[i]->findBike(type))
 			confirmed_stations.push_back(stations[i]);
 
 	return confirmed_stations;
 }
+
+
 
 
 

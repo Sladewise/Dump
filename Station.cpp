@@ -13,11 +13,21 @@ Station::Station(int max_spots,string localization, int x, int y)
 	Localization.second = y;
 }
 
+vector<Bike *> Station::getAvailableBikes() const
+{
+	return available_bikes;
+}
+
 bool Station::findBike(string type) const
 {
 	for (unsigned int i = 0; i < available_bikes.size(); i++)
 		return true; //Needs get ID method from Bikes
 		
 	return false;
+}
+
+pair<int, int> Station::getLocalization() const
+{
+	return Localization;
 }
 

@@ -17,8 +17,11 @@ class User
 
 public:
     User(string username);
-    string getName() const;
-    Station getClosestStation(vector<Station> vs, pair<int, int> loc); //Args still need to be discussed
+	void setName(string new_name);
+	void setLocalization(int x, int y);
+	string getName() const;
+	pair<int, int> getLocalization() const;
+    Station* getClosestStation(vector<Station *> vs) const; //Args still need to be discussed
     void addBike(Bike *bk, HQ *hq);
     void removeBike();
 };
