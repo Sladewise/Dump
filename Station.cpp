@@ -21,7 +21,8 @@ vector<Bike *> Station::getAvailableBikes() const
 bool Station::findBike(string type) const
 {
 	for (unsigned int i = 0; i < available_bikes.size(); i++)
-		return true; //Needs get ID method from Bikes
+		if(available_bikes[i]->getID() == type)
+			return true;
 		
 	return false;
 }

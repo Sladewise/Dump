@@ -164,7 +164,7 @@ void InvalidInput(int n_op, int &op)
 
 void RentBike(HQ hq)
 {
-	string name, conf;
+	string name, conf, type;
 	int opt, p_im;
 	unsigned int im;
 	vector<Station *> vs;
@@ -206,17 +206,23 @@ void RentBike(HQ hq)
 	switch (opt)
 	{
 		case 1:
-			vs = hq.find_bike_type("UB");
+			type = "UB";
+			vs = hq.find_bike_type(type);
 			break;
 
 		case 2:
-			vs = hq.find_bike_type("US");
+			type = "US";
+			vs = hq.find_bike_type(type);
 			break;
+
 		case 3:
-			vs = hq.find_bike_type("CH");
+			type = "CH";
+			vs = hq.find_bike_type(type);
 			break;
+
 		case 4:
-			vs = hq.find_bike_type("RC");
+			type = "RC";
+			vs = hq.find_bike_type(type);
 			break;
 	}
 	
@@ -241,10 +247,14 @@ void RentBike(HQ hq)
 		u->setLocalization(closest_station->getLocalization().first, closest_station->getLocalization().second);
 
 		for (unsigned int i = 0; i < closest_station->getAvailableBikes().size(); i++)
-			//if (closest_station->getAvailableBikes()[i]->getID)
-				
+			if (closest_station->getAvailableBikes()[i]->getID() == type)
+			{
+				u->addBike(closest_station->getAvailableBikes()[i], &hq);
+				break;
+			}
 	}
-		
+	
+	return;
 }
 
 

@@ -9,7 +9,7 @@ User::User(string username)
 {
 	srand(time(NULL));
 	Date null_date(1,1,0,0);
-    Urban_simple_b *null_bike = new Urban_simple_b("00",null_date,0);
+    Urban_simple_b *null_bike = new Urban_simple_b(null_date);
     bike = null_bike;
     name = username;
     active = false;
@@ -54,7 +54,7 @@ Station* User::getClosestStation(vector<Station *> vs) const
 {
 	unsigned int i = 0, i_min = 0;
 	pair<int, int> stat_loc = vs[i]->getLocalization();
-	float min = sqrt(pow(stat_loc.first - Localization.first, 2) + pow(stat_loc.second - Localization.second, 2));
+	double min = sqrt(pow(stat_loc.first - Localization.first, 2) + pow(stat_loc.second - Localization.second, 2));
 
 	for (i; i < vs.size(); i++)
 	{
