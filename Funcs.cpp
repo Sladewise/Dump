@@ -31,7 +31,7 @@ void Main_Menu(HQ hq)
                 break;
 
             case 3:
-
+				Payment_Menu();
                 break;
 
             case 4:

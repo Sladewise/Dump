@@ -11,6 +11,7 @@ using namespace std;
 void Main_Menu(HQ hq);
 void Bikes_Menu(HQ hq);
 void Station_Menu(HQ hq);
+void Payment_Menu();
 void InvalidInput(int n_op, int &op);
 void RentBike(HQ hq);
 void Search_Station(HQ hq);
