@@ -4,6 +4,8 @@
 #include "User.h"
 #include "Station.h"
 #include <time.h>
+#include <fstream>
+#include <sstream>
 
 using namespace std;
 
@@ -15,8 +17,8 @@ class HQ
 
 public:
     HQ();
-    void read_info() const;  //Reads from file and fills the vectors
-    void write_info() const; //Writes the data from the vectors to the text files
+	void read_info(); //Reads from file and fills the vectors
+	void write_info();//Writes the data from the vectors to the text files
     void addMember(Member member); //Adds new member
     void addActiveUser(User *user); //Adds active user
     void addStation(Station station); //Adds new station

@@ -2,6 +2,8 @@
 
 using namespace std;
 
+Date g_date(9, 11, 10, 1); //EFEITOS DE TESTE ONLY
+
 HQ::HQ()
 {
     vector<Member*> empty_members;
@@ -99,6 +101,134 @@ void HQ::search_station(string name) const
 		}
 
 	cout << "Station not found\n";
+}
+
+void HQ::read_info()
+{
+	ifstream read;
+	istringstream sstr;
+	string txt_line, comma, bike_id, s_name;
+	int x, y, month_hours, i, month, day, hour, minute, max_spots;
+	double price_to_pay;
+	bool member = false;
+	Bike *user_bike, *station_bike;
+	User *ready_active_user = new User("null");
+	Station *ready_station;
+
+	read.open("Members.txt");
+
+	while (getline(read, txt_line))
+	{
+		Member *ready_member = new Member(txt_line);
+
+		getline(read, txt_line);
+		sstr.str(txt_line);
+		sstr >> x >> comma >> y;
+		sstr.clear();
+		getline(read, txt_line);
+		sstr.str(txt_line);
+		sstr >> month_hours;
+		sstr.clear();
+		getline(read, txt_line);
+		sstr.str(txt_line);
+		sstr >> price_to_pay;
+		sstr.clear();
+		ready_member->setLocalization(x, y);
+		ready_member->setHours(month_hours);
+
+		members.push_back(ready_member);
+	}
+
+	read.close();
+	read.open("Active_Users.txt");
+
+	while (getline(read, txt_line))
+	{
+		i = find_Member(txt_line);
+
+		if (i != -1)
+			member = true;
+		else
+			ready_active_user = new User(txt_line);
+
+		getline(read, txt_line);
+		sstr.str(txt_line);
+		sstr >> x >> comma >> y;
+		sstr.clear();
+		getline(read, txt_line);
+		sstr.str(txt_line);
+		sstr >> bike_id;
+		sstr.clear();
+		getline(read, txt_line);
+		sstr.str(txt_line);
+		sstr >> month >> comma >> day >> comma >> hour >> comma >> minute;
+		sstr.clear();
+		Date bike_date(month, day, hour, minute);
+		
+		if (bike_id == "US")
+			user_bike = new Urban_simple_b(bike_date);
+		else
+			if (bike_id == "UB")
+				user_bike = new Urban_b(bike_date);
+			else
+				if (bike_id == "CH")
+					user_bike = new Child_b(bike_date);
+				else
+					user_bike = new Race_b(bike_date);
+
+		if (member)
+			members[i]->setBike(user_bike);
+		else
+		{
+			ready_active_user->addBike(user_bike, this);
+			active_users.push_back(ready_active_user);
+		}
+	}
+
+	read.close();
+	read.open("Stations.txt");
+
+	while (getline(read, txt_line))
+	{
+		s_name = txt_line;
+
+		getline(read, txt_line);
+		sstr.str(txt_line);
+		sstr >> x >> comma >> y;
+		sstr.clear();
+		getline(read, txt_line);
+		sstr.str(txt_line);
+		sstr >> max_spots;
+		sstr.clear();
+		getline(read, txt_line);
+		sstr.str(txt_line);
+		sstr.clear();
+		ready_station = new Station(max_spots, s_name, x, y);
+
+		comma = "";
+
+		while(comma != ";")
+		{
+			sstr >> bike_id >> comma;
+			
+			if (bike_id == "US")
+				station_bike = new Urban_simple_b(g_date);
+			else
+				if (bike_id == "UB")
+					station_bike = new Urban_b(g_date);
+				else
+					if (bike_id == "CH")
+						station_bike = new Child_b(g_date);
+					else
+						station_bike = new Race_b(g_date);
+
+			ready_station->addBike(station_bike);
+		}
+	}
+
+	read.close();
+
+	
 }
 
 

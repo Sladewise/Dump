@@ -38,6 +38,11 @@ void User::setLocalization(int x, int y)
 	Localization.second = y;
 }
 
+void User::setBike(Bike *bk)
+{
+	bike = bk;
+}
+
 void User::addBike(Bike *bk, HQ *hq)
 {
     bike = bk;
@@ -76,6 +81,13 @@ Member::Member(string username) : User(username)
 {
     total_monthly_time = 0;
 }
+
+void Member::setHours(int hours)
+{
+	total_monthly_time = hours;
+}
+
+
 
 //Regular
 

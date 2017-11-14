@@ -13,6 +13,18 @@ Station::Station(int max_spots,string name, int x, int y)
 	Localization.second = y;
 }
 
+void Station::addBike(Bike *bk)
+{
+	available_bikes.push_back(bk);
+}
+
+void Station::removeBike(string bike_id)
+{
+	for (unsigned int i = 0; i < available_bikes.size(); i++)
+		if (bike_id == available_bikes[i]->getID())
+			available_bikes.erase(available_bikes.begin() + i);
+}
+
 vector<Bike *> Station::getAvailableBikes() const
 {
 	return available_bikes;

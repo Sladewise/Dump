@@ -18,6 +18,8 @@ class Station
 public:
     Station(int max_spots, string name, int x, int y);
     bool findBike(string type) const;
+	void addBike(Bike *bk);
+	void removeBike(string bike_id);
 	pair<int, int> getLocalization() const;
 	vector<Bike *> getAvailableBikes() const;
 	string getName() const;

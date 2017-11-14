@@ -18,7 +18,7 @@ void Main_Menu(HQ hq)
 
         cin >> opt;
 
-        InvalidInput(2, opt);
+        InvalidInput(5, opt);
 
         switch(opt)
         {
@@ -153,7 +153,7 @@ void Payment_Menu()
 
 void InvalidInput(int n_op, int &op)
 {
-    while(cin.fail() || (op < 1 && op > n_op))
+    while(cin.fail() || (op < 1 || op > n_op))
     {
         cin.clear();
         cin.ignore(1000, '\n');
@@ -250,6 +250,7 @@ void RentBike(HQ hq)
 			if (closest_station->getAvailableBikes()[i]->getID() == type)
 			{
 				u->addBike(closest_station->getAvailableBikes()[i], &hq);
+				closest_station->removeBike(type);
 				break;
 			}
 	}
