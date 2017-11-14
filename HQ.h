@@ -21,7 +21,7 @@ public:
 	void write_info();//Writes the data from the vectors to the text files
     void addMember(Member member); //Adds new member
     void addActiveUser(User *user); //Adds active user
-    void addStation(Station station); //Adds new station
+    void addStation(Station *station); //Adds new station
 	vector<User *> getActiveUsers() const;
 	vector<Member *> getMembers() const;
 	vector<Station *> getStations() const;
@@ -29,6 +29,7 @@ public:
     int find_ActiveUser(string name);  //Returns a pointer to an active user if it exists, else returns a pointer to a "null active user"
 	vector<Station *> find_bike_type(string type) const;
 	void search_station(string name) const;
+	void show_stations() const;
 };
 
 #endif

@@ -23,6 +23,7 @@ public:
 	string getName() const;
 	pair<int, int> getLocalization() const;
     Station* getClosestStation(vector<Station *> vs) const;
+	Bike* getBike() const;
     void addBike(Bike *bk, HQ *hq);
     void removeBike();
 };
@@ -35,7 +36,8 @@ class Member: public User
 public:
     Member(string username);
 	void setHours(int hours);
-    double getPrice();
+    double getPrice() const;
+	int getHours() const;
 
 };
 

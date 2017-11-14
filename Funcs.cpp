@@ -39,6 +39,7 @@ void Main_Menu(HQ hq)
                 break;
 
             case 5:
+				hq.write_info();
                 break;
 
             default:
@@ -101,11 +102,11 @@ void Station_Menu(HQ hq)
                 break;
 
             case 2:
-
+				hq.show_stations();
                 break;
 
             case 3:
-
+				Nearest_Station(hq);
                 break;
 
             case 4:
@@ -174,6 +175,14 @@ void RentBike(HQ hq)
 	cout << "Username: ";
 	cin >> name;
 
+	while (cin.fail())
+	{
+		cin.clear();
+		cin.ignore(1000, '\n');
+		cout << "Invalid input. Please try again.\n";
+		cin >> name;
+	}
+
 	if (hq.find_ActiveUser(name) != -1)
 		throw(Already_Active_User(name));
 
@@ -193,7 +202,7 @@ void RentBike(HQ hq)
 		<< "|     1 - Urban    |\n"
 		<< "+------------------+\n"
 		<< "| 2 - Simple Urban |\n"
-		<< "+------------------+/n"
+		<< "+------------------+\n"
 		<< "|     3 - Child    |\n"
 		<< "+------------------+\n"
 		<< "|    4 - Racing    |\n"
@@ -225,11 +234,17 @@ void RentBike(HQ hq)
 			vs = hq.find_bike_type(type);
 			break;
 	}
+
+	if (vs.empty())
+	{
+		cout << "There aren't any stations with that bike type\n";
+		return;
+	}
 	
 	closest_station = u->getClosestStation(vs);
 	cout << "The nearest station with that type of bike (" << closest_station->getName() << ") is "
-		<< sqrt(pow(closest_station->getLocalization().first - u->getLocalization().first, 2)
-			+ pow(closest_station->getLocalization().second - u->getLocalization().second, 2))
+		<< calc_distance(closest_station->getLocalization().first, closest_station->getLocalization().second, 
+			u->getLocalization().first, u->getLocalization().second)
 		<< "km away. Are you sure you want to continue? (y/n)\n";
 
 	cin >> conf;
@@ -275,6 +290,77 @@ void Search_Station(HQ hq)
 
 	hq.search_station(s_name);
 }
+
+double calc_distance(int x1, int y1, int x2, int y2)
+{
+	return sqrt(pow(x1 - x2, 2) + pow(y1 - y2, 2));
+}
+
+void Nearest_Station(HQ hq)
+{
+	string username;
+	int x2, y2, i;
+	double smallest_distance, tmp_distance;
+	
+	cout << "Username: ";
+	cin >> username;
+	cout << endl;
+
+	while (cin.fail())
+	{
+		cin.clear();
+		cin.ignore(1000, '\n');
+		cout << "Invalid input. Please try again.\n";
+		cin >> username;
+		cout << endl;
+	}
+
+	i = hq.find_ActiveUser(username);
+
+	if(i != -1)
+	{
+		x2 = hq.getActiveUsers()[i]->getLocalization().first;
+		y2 = hq.getActiveUsers()[i]->getLocalization().second;
+	}
+	else
+	{
+		i = hq.find_Member(username);
+
+		if (i != -1)
+		{
+			x2 = hq.getMembers()[i]->getLocalization().first;
+			y2 = hq.getMembers()[i]->getLocalization().second;
+		}
+		else
+		{
+			User *u = new Regular(username);
+			x2 = u->getLocalization().first;
+			y2 = u->getLocalization().second;
+		}
+	}
+
+	smallest_distance = calc_distance(hq.getStations()[0]->getLocalization().first,
+		hq.getStations()[0]->getLocalization().second, x2, y2);
+
+	i = 0;
+
+	for (unsigned int j = 0; j < hq.getStations().size(); j++)
+	{
+		tmp_distance = calc_distance(hq.getStations()[j]->getLocalization().first,
+			hq.getStations()[j]->getLocalization().second, x2, y2);
+
+		if (tmp_distance < smallest_distance)
+		{
+			smallest_distance = tmp_distance;
+			i = j;
+		}
+	}
+
+	cout << "The neares station is: \n" << endl;
+	hq.search_station(hq.getStations()[i]->getName());
+}
+
+
 
 
 

@@ -20,6 +20,11 @@ void HQ::addActiveUser(User *user)
 	active_users.push_back(user);
 }
 
+void HQ::addStation(Station *station)
+{
+	stations.push_back(station);
+}
+
 vector<User *> HQ::getActiveUsers() const
 {
 	return active_users;
@@ -95,7 +100,7 @@ void HQ::search_station(string name) const
 			cout << "Urban: " << n_ub << endl
 				<< "Simple urban: " << n_us << endl
 				<< "Child: " << n_ch << endl
-				<< "Racing: " << n_rc << endl;
+				<< "Racing: " << n_rc << endl << endl;
 
 			return;
 		}
@@ -103,10 +108,44 @@ void HQ::search_station(string name) const
 	cout << "Station not found\n";
 }
 
+void HQ::show_stations() const
+{
+	int n_rc = 0, n_ub = 0, n_us = 0, n_ch = 0;
+
+	for (unsigned int i = 0; i < stations.size(); i++)
+	{
+		cout << stations[i]->getName() << endl
+			<< endl
+			<< "Coordinates: " << stations[i]->getLocalization().first << ", " << stations[i]->getLocalization().second
+			<< endl
+			<< "Maximum capacity: " << stations[i]->getMaxSpots() << endl
+			<< "No of available spots: " << stations[i]->getMaxSpots() - stations[i]->getAvailableBikes().size() << endl
+			<< "Available Bikes:\n";
+
+		for (unsigned int j = 0; j < stations[i]->getAvailableBikes().size(); j++)
+			if (stations[i]->getAvailableBikes()[j]->getID() == "US") //Might need to change
+				n_us++;
+			else
+				if (stations[i]->getAvailableBikes()[j]->getID() == "UB")
+					n_ub++;
+				else
+					if (stations[i]->getAvailableBikes()[j]->getID() == "CH")
+						n_ch++;
+					else
+						if (stations[i]->getAvailableBikes()[j]->getID() == "RC")
+							n_rc++;
+
+		cout << "Urban: " << n_ub << endl
+			<< "Simple urban: " << n_us << endl
+			<< "Child: " << n_ch << endl
+			<< "Racing: " << n_rc << endl << endl;
+	}
+}
+
 void HQ::read_info()
 {
 	ifstream read;
-	istringstream sstr;
+	istringstream sstr;		
 	string txt_line, comma, bike_id, s_name;
 	int x, y, month_hours, i, month, day, hour, minute, max_spots;
 	double price_to_pay;
@@ -202,10 +241,7 @@ void HQ::read_info()
 		sstr.clear();
 		getline(read, txt_line);
 		sstr.str(txt_line);
-		sstr.clear();
 		ready_station = new Station(max_spots, s_name, x, y);
-
-		comma = "";
 
 		while(comma != ";")
 		{
@@ -224,11 +260,58 @@ void HQ::read_info()
 
 			ready_station->addBike(station_bike);
 		}
+
+		sstr.clear();
+		addStation(ready_station);
 	}
 
 	read.close();
+}
 
-	
+void HQ::write_info()
+{
+	ofstream write;
+	unsigned int i, j;
+
+	write.open("Active_Users.txt");
+
+	for (i = 0; i < active_users.size(); i++)
+	{
+		write << active_users[i]->getName() << endl
+			<< active_users[i]->getLocalization().first << " , " << active_users[i]->getLocalization().second << endl
+			<< active_users[i]->getBike()->getID() << endl
+			<< active_users[i]->getBike()->getDate().getMonth() << " / "
+			<< active_users[i]->getBike()->getDate().getDay() << " ; "
+			<< active_users[i]->getBike()->getDate().getHour() << " : "
+			<< active_users[i]->getBike()->getDate().getMinutes() << endl;
+	}
+
+	write.close();
+	write.open("Members.txt");
+
+	for (i = 0; i < members.size(); i++)
+	{
+		write << members[i]->getName() << endl
+			<< members[i]->getLocalization().first << " , " << members[i]->getLocalization().second << endl
+			<< members[i]->getHours() << endl;
+	}
+
+	write.close();
+	write.open("Stations.txt");
+
+	for (i = 0; i < stations.size(); i++)
+	{
+		write << stations[i]->getName() << endl
+			<< stations[i]->getLocalization().first << " , " << stations[i]->getLocalization().second << endl
+			<< stations[i]->getMaxSpots() << endl;
+
+		for (j = 0; j < stations[i]->getAvailableBikes().size() - 1; j++)
+			write << stations[i]->getAvailableBikes()[j]->getID() << " , ";
+
+		write << stations[i]->getAvailableBikes()[j]->getID() << " ;" << endl;
+	}
+
+	write.close();
 }
 
 

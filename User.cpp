@@ -27,6 +27,11 @@ pair<int, int> User::getLocalization() const
 	return Localization;
 }
 
+Bike* User::getBike() const
+{
+	return bike;
+}
+
 void User::setName(string new_name)
 {
 	name = new_name;
@@ -85,6 +90,11 @@ Member::Member(string username) : User(username)
 void Member::setHours(int hours)
 {
 	total_monthly_time = hours;
+}
+
+int Member::getHours() const
+{
+	return total_monthly_time;
 }
 
 
