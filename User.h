@@ -16,16 +16,20 @@ class User
 	pair <int, int> Localization;
 
 public:
-    User(string username);
+	static double price_hour;
+	User(string username);
 	void setName(string new_name);
 	void setLocalization(int x, int y);
 	void setBike(Bike *bk);
+	void set_active(bool cond);
 	string getName() const;
 	pair<int, int> getLocalization() const;
     Station* getClosestStation(vector<Station *> vs) const;
 	Bike* getBike() const;
+    virtual double getPrice() const;
     void addBike(Bike *bk, HQ *hq);
     void removeBike();
+	virtual void Checkout(Date global_date);
 };
 
 class Member: public User
@@ -38,6 +42,7 @@ public:
 	void setHours(int hours);
     double getPrice() const;
 	int getHours() const;
+	void Checkout(Date global_date);
 
 };
 
@@ -46,7 +51,6 @@ class Regular: public User
     static double price_hour;
 public:
     Regular(string username);
-    double getPrice();
 };
 
 class Already_Active_User

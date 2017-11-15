@@ -54,3 +54,34 @@ int Station::getMaxSpots() const
 	return no_max_spots;
 }
 
+void Station::show_station() const
+{
+	int n_us = 0, n_ub = 0, n_ch = 0, n_rc = 0;
+	
+	cout << name << endl
+		<< endl
+		<< "Coordinates: " << getLocalization().first << ", " << getLocalization().second
+		<< endl
+		<< "Maximum capacity: " << getMaxSpots() << endl
+		<< "No of available spots: " << getMaxSpots() - getAvailableBikes().size() << endl
+		<< "Available Bikes:\n";
+
+	for (unsigned int j = 0; j < getAvailableBikes().size(); j++)
+		if (getAvailableBikes()[j]->getID() == "US") //Might need to change
+			n_us++;
+		else
+			if (getAvailableBikes()[j]->getID() == "UB")
+				n_ub++;
+			else
+				if (getAvailableBikes()[j]->getID() == "CH")
+					n_ch++;
+				else
+					if (getAvailableBikes()[j]->getID() == "RC")
+						n_rc++;
+
+	cout << "Urban: " << n_ub << endl
+		<< "Simple urban: " << n_us << endl
+		<< "Child: " << n_ch << endl
+		<< "Racing: " << n_rc << endl << endl;
+}
+

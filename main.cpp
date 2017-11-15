@@ -11,7 +11,7 @@ int main()
 {
 	HQ hq;
 	hq.read_info();
-	Main_Menu(hq);
+	hq.Main_Menu();
 
     return 0;
 }

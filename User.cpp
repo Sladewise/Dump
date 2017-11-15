@@ -5,6 +5,9 @@ using namespace std;
 
 //User
 
+double User::price_hour = 5;
+double Member::price_month = 30;
+
 User::User(string username)
 {
 	srand(time(NULL));
@@ -48,6 +51,11 @@ void User::setBike(Bike *bk)
 	bike = bk;
 }
 
+void User::set_active(bool cond)
+{
+	active = cond;
+}
+
 void User::addBike(Bike *bk, HQ *hq)
 {
     bike = bk;
@@ -80,6 +88,16 @@ Station* User::getClosestStation(vector<Station *> vs) const
 	return vs[i_min];
 }
 
+double User::getPrice() const
+{
+	return price_hour;
+}
+
+void User::Checkout(Date global_date)
+{
+	
+}
+
 //Member
 
 Member::Member(string username) : User(username)
@@ -97,7 +115,20 @@ int Member::getHours() const
 	return total_monthly_time;
 }
 
+double Member::getPrice() const
+{
+	if (total_monthly_time >= 20)
+		return price_month * 0.90;
+	else return price_month * 0.95;
+}
 
+void Member::Checkout(Date global_date)
+{
+	int n_hours = global_date - getBike()->getDate();
+
+	total_monthly_time += n_hours;
+	set_active(false);
+}
 
 //Regular
 
