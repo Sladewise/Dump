@@ -29,7 +29,10 @@ public:
 	void setMonth(int m);
 	void setHour(int h);
 	void setMinutes(int min);
+	void addMonth(int m);
+	void addDay(int d);
 	void addHour(int h);
+	void addMinutes(int min);
 	int operator-( Date &date1);
 };
 

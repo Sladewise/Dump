@@ -16,7 +16,7 @@ class Bike
 protected:
 	string ID;
 	Date start_date;
-	static int id_counter;
+	
 
 public:
 	Bike( Date start_date);

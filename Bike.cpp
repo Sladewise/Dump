@@ -26,7 +26,7 @@ Date Bike::getDate()
 {
 	return start_date;
 }
-int Bike::id_counter = 0;
+
 string Bike::getID()
 
 {
@@ -45,9 +45,8 @@ Urban_b::Urban_b(Date start_date) :Bike(start_date)
 
 
 
-	this->id_counter++;
 
-	id = "UB" + to_string(this->id_counter);
+	id = "UB";
 	
 	setID(id);
 
@@ -75,9 +74,9 @@ Urban_simple_b::Urban_simple_b( Date start_date):Bike(start_date)
 {
 	string id;
 
-	this->id_counter++;
+	
 
-	id = "US" + to_string(this->id_counter);
+	id = "US";
 
 	setID(id);
 
@@ -99,9 +98,9 @@ Race_b::Race_b( Date start_date) : Bike(start_date)
 {
 	string id;
 
-	this->id_counter++;
+	
 
-	id = "RC" + to_string(this->id_counter);
+	id = "RC";
 
 	setID(id);
 }
@@ -120,9 +119,8 @@ Child_b::Child_b( Date start_date) : Bike(start_date)
 {
 	string id;
 
-	this->id_counter++;
 
-	id = "CH" + to_string(this->id_counter);
+	id = "CH";
 
 	setID(id);
 }
