@@ -1,11 +1,10 @@
-#ifndef P1_DATE_H
-#define P1_DATE_H
+#ifndef AEDA_P1_DATE_H
+#define AEDA_P1_DATE_H
 
 #include <iostream>
 #include <string>
 
 using namespace std;
-
 
 
 
@@ -30,15 +29,14 @@ public:
 	void setMonth(int m);
 	void setHour(int h);
 	void setMinutes(int min);
+	void addMonth(int m);
+	void addDay(int d);
 	void addHour(int h);
+	void addMinutes(int min);
 	int operator-( Date &date1);
-
-	
-
-
-
 };
 
+#endif
 
 
 
@@ -46,5 +44,3 @@ public:
 
 
 
-
-#endif //P1_DATE_H

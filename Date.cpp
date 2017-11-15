@@ -1,5 +1,3 @@
-#include <iostream>
-#include <string>
 #include"Date.h"
 
 
@@ -96,9 +94,27 @@ int Date::getMinutes()
 	return minutes;
 }
 
+void Date::addMonth(int m)
+{
+	setMonth(this->month + m);
+
+}
+
+void Date::addDay(int d)
+{
+	setDay(this->day + d);
+
+}
+
 void Date::addHour(int h)
 {
 	setHour(this->hour + h);
+
+}
+
+void Date::addMinutes(int min)
+{
+	setMinute(this->minute + min);
 
 }
 
