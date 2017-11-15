@@ -24,7 +24,17 @@ public:
 	vector<Bike *> getAvailableBikes() const;
 	string getName() const;
 	int getMaxSpots() const;
+	int getSpots() const;
 	void show_station() const;
+};
+
+class Inexistent_Station
+{
+	string name;
+
+public:
+	Inexistent_Station(string nm);
+	string getName() const;
 };
 
 #endif

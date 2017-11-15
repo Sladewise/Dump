@@ -93,10 +93,7 @@ double User::getPrice() const
 	return price_hour;
 }
 
-void User::Checkout(Date global_date)
-{
-	
-}
+void User::Checkout(Date global_date){}
 
 //Member
 
@@ -134,6 +131,15 @@ void Member::Checkout(Date global_date)
 
 Regular::Regular(string username) : User(username) {}
 
+void Regular::Checkout(Date global_date)
+{
+	double price = getBike()->getPrice(global_date);
+
+	cout << endl << "Total cost: " << setprecision(2) << price << endl;
+
+	set_active(false);
+}
+
 //Already Active User
 
 Already_Active_User::Already_Active_User(string name)
@@ -142,6 +148,18 @@ Already_Active_User::Already_Active_User(string name)
 }
 
 string Already_Active_User::getName() const
+{
+	return name;
+}
+
+//Not Active User
+
+Not_Active_User::Not_Active_User(string nm)
+{
+	name = nm;
+}
+
+string Not_Active_User::getName() const
 {
 	return name;
 }

@@ -3,6 +3,7 @@
 
 #include "Bike.h"
 #include "Station.h"
+#include <iomanip>
 
 using namespace std;
 
@@ -51,6 +52,7 @@ class Regular: public User
     static double price_hour;
 public:
     Regular(string username);
+	void Checkout(Date global_date);
 };
 
 class Already_Active_User
@@ -59,6 +61,15 @@ class Already_Active_User
 
 public:
 	Already_Active_User(string name);
+	string getName() const;
+};
+
+class Not_Active_User 
+{
+	string name;
+
+public:
+	Not_Active_User(string nm);
 	string getName() const;
 };
 

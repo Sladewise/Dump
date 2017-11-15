@@ -18,17 +18,17 @@ class HQ
 
 public:
     HQ();
-	void read_info(); //Reads from file and fills the vectors
+	void read_info(Date global_date); //Reads from file and fills the vectors
 	void write_info();//Writes the data from the vectors to the text files
-	void Main_Menu();
+	void Main_Menu(Date global_date);
 	void Bikes_Menu();
 	void Station_Menu();
 	void Payment_Menu(Date g_date);
 	void RentBike();
 	void Search_Station();
 	void Nearest_Station();
-	void Check_Balance();
-	void Check_out(Date g_date);
+	void Check_Balance(Date global_date);
+	void Check_out(Date global_date);
     void addMember(Member member); //Adds new member
     void addActiveUser(User *user); //Adds active user
     void addStation(Station *station); //Adds new station
@@ -37,6 +37,7 @@ public:
 	vector<Station *> getStations() const;
     int find_Member(string name); //Returns the index of the member in the HQ vector, else returns -1
     int find_ActiveUser(string name);  //Returns the index of the active user in the HQ vector, else returns -1
+	int find_Station(string name); //Returns the index of the station in the HQ vector, else returns -1
 	vector<Station *> find_bike_type(string type) const;
 	void search_station(string name) const;
 	void show_stations() const;

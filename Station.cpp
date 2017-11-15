@@ -54,6 +54,11 @@ int Station::getMaxSpots() const
 	return no_max_spots;
 }
 
+int Station::getSpots() const
+{
+	return no_max_spots - available_bikes.size();
+}
+
 void Station::show_station() const
 {
 	int n_us = 0, n_ub = 0, n_ch = 0, n_rc = 0;
@@ -83,5 +88,17 @@ void Station::show_station() const
 		<< "Simple urban: " << n_us << endl
 		<< "Child: " << n_ch << endl
 		<< "Racing: " << n_rc << endl << endl;
+}
+
+//Inexistant Station
+
+Inexistent_Station::Inexistent_Station(string nm)
+{
+	name = nm;
+}
+
+string Inexistent_Station::getName() const
+{
+	return name;
 }
 

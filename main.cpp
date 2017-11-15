@@ -10,8 +10,10 @@ using namespace std;
 int main()
 {
 	HQ hq;
-	hq.read_info();
-	hq.Main_Menu();
+	Date g_date(11, 15, 15, 11);
+
+	hq.read_info(g_date);
+	hq.Main_Menu(g_date);
 
     return 0;
 }

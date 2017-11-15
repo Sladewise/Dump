@@ -2,8 +2,6 @@
 
 using namespace std;
 
-Date g_date(9, 11, 10, 1); //EFEITOS DE TESTE ONLY
-
 HQ::HQ()
 {
     vector<Member*> empty_members;
@@ -53,6 +51,15 @@ int HQ::find_ActiveUser(string name)
 {
 	for (unsigned int i = 0; i < active_users.size(); i++)
 		if (active_users[i]->getName() == name)
+			return i;
+
+	return -1;
+}
+
+int HQ::find_Station(string name)
+{
+	for (unsigned int i = 0; i < stations.size(); i++)
+		if (stations[i]->getName() == name)
 			return i;
 
 	return -1;
@@ -117,10 +124,10 @@ void HQ::show_stations() const
 	}
 }
 
-void HQ::Main_Menu()
+void HQ::Main_Menu(Date global_date)
 {
 	int opt;
-	Date global_date(11, 15, 15, 11);
+	
 
 	do
 	{
@@ -255,11 +262,11 @@ void HQ::Payment_Menu(Date g_date)
 		switch (opt)
 		{
 		case 1:
-			Check_Balance();
+			Check_Balance(g_date);
 			break;
 
 		case 2:
-
+			Check_out(g_date);
 			break;
 
 		default:
@@ -433,7 +440,7 @@ void HQ::Nearest_Station()
 	u->getClosestStation(getStations())->show_station();
 }
 
-void HQ::Check_Balance()
+void HQ::Check_Balance(Date g_date)
 {
 	int i, n_hours;
 	string username;
@@ -483,15 +490,15 @@ void HQ::Check_Balance()
 void HQ::Check_out(Date g_date)
 {
 	vector<Station *> available_stations;
-	string username;
-	int i, j, opt;
+	string username, station_name;
+	int i, j, st, opt;
 	bool member = false;
 	User *u = NULL;
 	Member *m = NULL;
 	Station *s;
 
 	for (unsigned int i = 0; i < getStations().size(); i++)
-		if (getStations()[i]->getMaxSpots() - getStations()[i]->getAvailableBikes().size() > 0)
+		if (getStations()[i]->getSpots() > 0)
 			available_stations.push_back(getStations()[i]);
 
 	cout << "Username: ";
@@ -510,19 +517,17 @@ void HQ::Check_out(Date g_date)
 	i = find_Member(username);
 	j = find_ActiveUser(username);
 
-	if (i != -1 && j == -1)
+	if (i != -1 && j != -1)
 	{
 		m = getMembers()[i];
 		member = true;
 	}
 	else
 	{
-		i = find_ActiveUser(username);
-
-		if (i != -1)
-			u = getActiveUsers()[i];
+		if (j != -1)
+			u = getActiveUsers()[j];
 		else
-			u = new Regular(username);
+			throw(Not_Active_User(username));
 	}
 
 	cout << "The closest station with available spots is /n" << endl;
@@ -542,24 +547,62 @@ void HQ::Check_out(Date g_date)
 	switch (opt)
 	{
 	case 1:
+		
 		if (member)
 		{
 			m->Checkout(g_date);
+			active_users.erase(active_users.begin() + i);
 			s->addBike(m->getBike());
 		}
 		else
-			break;
+		{
+			u->Checkout(g_date);
+			active_users.erase(active_users.begin() + j);
+			s->addBike(u->getBike());
+		}
+		
+		break;
 
+	case 2:
+		cout << "Station name: ";
+		cin >> station_name;
+
+		while (cin.fail())
+		{
+			cin.clear();
+			cin.ignore(1000, '\n');
+			cout << "Invalid input. Please try again.\n";
+			cin >> station_name;
+			cout << endl;
+		}
+
+		st = find_Station(station_name);
+
+		if (st != -1)
+			s = stations[i];
+		else throw(Inexistent_Station(station_name));
+
+		if (member)
+		{
+			m->Checkout(g_date);
+			active_users.erase(active_users.begin() + i);
+			s->addBike(m->getBike());
+		}
+		else
+		{
+			u->Checkout(g_date);
+			active_users.erase(active_users.begin() + j);
+			s->addBike(u->getBike());
+		}
 	}
 }
 
-void HQ::read_info()
+void HQ::read_info(Date global_date)
 {
 	ifstream read;
 	istringstream sstr;		
 	string txt_line, comma, bike_id, s_name;
 	int x, y, month_hours, i, month, day, hour, minute, max_spots;
-	double price_to_pay;
 	bool member = false;
 	Bike *user_bike, *station_bike;
 	User *ready_active_user = new User("null");
@@ -658,15 +701,15 @@ void HQ::read_info()
 			sstr >> bike_id >> comma;
 			
 			if (bike_id == "US")
-				station_bike = new Urban_simple_b(g_date);
+				station_bike = new Urban_simple_b(global_date);
 			else
 				if (bike_id == "UB")
-					station_bike = new Urban_b(g_date);
+					station_bike = new Urban_b(global_date);
 				else
 					if (bike_id == "CH")
-						station_bike = new Child_b(g_date);
+						station_bike = new Child_b(global_date);
 					else
-						station_bike = new Race_b(g_date);
+						station_bike = new Race_b(global_date);
 
 			ready_station->addBike(station_bike);
 		}
