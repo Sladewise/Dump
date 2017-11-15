@@ -579,10 +579,6 @@ void HQ::read_info()
 		sstr.str(txt_line);
 		sstr >> month_hours;
 		sstr.clear();
-		getline(read, txt_line);
-		sstr.str(txt_line);
-		sstr >> price_to_pay;
-		sstr.clear();
 		ready_member->setLocalization(x, y);
 		ready_member->setHours(month_hours);
 
@@ -597,7 +593,10 @@ void HQ::read_info()
 		i = find_Member(txt_line);
 
 		if (i != -1)
+		{
 			member = true;
+			active_users.push_back(getMembers()[i]);
+		}
 		else
 			ready_active_user = new User(txt_line);
 
@@ -630,8 +629,8 @@ void HQ::read_info()
 			members[i]->setBike(user_bike);
 		else
 		{
+			ready_active_user->setLocalization(x, y);
 			ready_active_user->addBike(user_bike, this);
-			active_users.push_back(ready_active_user);
 		}
 	}
 

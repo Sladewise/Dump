@@ -114,7 +114,7 @@ void Date::addHour(int h)
 
 void Date::addMinutes(int min)
 {
-	setMinute(this->minute + min);
+	setMinutes(this->minutes + min);
 
 }
 
