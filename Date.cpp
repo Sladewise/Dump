@@ -74,22 +74,22 @@ Date::Date(int month, int day, int hour, int minutes)
 
 }
 
-int Date::getDay()
+int Date::getDay() const
 {
 	return day;
 }
 
-int Date::getMonth()
+int Date::getMonth() const
 {
 	return month;
 }
 
-int Date::getHour()
+int Date::getHour() const
 {
 	return hour;
 }
 
-int Date::getMinutes()
+int Date::getMinutes() const
 {
 	return minutes;
 }
@@ -118,7 +118,7 @@ void Date::addMinutes(int min)
 
 }
 
-int Date::operator-( Date &date1)
+int Date::operator-(const Date &date1) const
 {
 	int subtraction_result= 0;
 

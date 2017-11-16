@@ -1,7 +1,7 @@
 #ifndef AEDA_P1_USER_H
 #define AEDA_P1_USER_H
 
-#include "Bike.h"
+// #include "Bike.h" - Station.h already includes Bike.h, i think it isn't needed to include Bike.h here - 16.11.2017
 #include "Station.h"
 #include <iomanip>
 
