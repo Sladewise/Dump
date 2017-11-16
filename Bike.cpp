@@ -39,7 +39,7 @@ double Urban_b::getPrice(Date global_date)
 	return price_h *  (global_date - getDate());
 }
 
-double Urban_b::price_h = 10;
+double Urban_b::price_h = 5;
 
 /////////////////URBAN SIMPLE BIKE/////////////////////////
 
@@ -56,7 +56,7 @@ double Urban_simple_b::getPrice(Date global_date)
 	return price_h *  (global_date - getDate());
 }
 
-double Urban_simple_b::price_h = 11;
+double Urban_simple_b::price_h = 3;
 
 /////////////////////RACE BIKE///////////////////////////
 
@@ -73,7 +73,7 @@ double Race_b::getPrice(Date global_date)
 	return price_h *  (global_date - getDate());
 }
 
-double Race_b::price_h = 12;
+double Race_b::price_h = 10;
 
 ///////////////////CHILD BIKE//////////////////////////////
 
@@ -90,4 +90,6 @@ double Child_b::getPrice(Date global_date)
 	return price_h *  (global_date - getDate());
 }
 
-double Child_b::price_h = 13;
+double Child_b::price_h = 3;
+
+

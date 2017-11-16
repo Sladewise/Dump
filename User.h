@@ -1,7 +1,6 @@
 #ifndef AEDA_P1_USER_H
 #define AEDA_P1_USER_H
 
-#include "Bike.h"
 #include "Station.h"
 #include <iomanip>
 

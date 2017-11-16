@@ -1,8 +1,6 @@
 #include"Date.h"
 
-
 using namespace std;
-
 
 void Date::setDay(int day)
 {
@@ -66,30 +64,24 @@ Date::Date(int month, int day, int hour, int minutes)
 	setDay(day);
 	setHour(hour);
 	setMinutes(minutes);
-	
-
-
-
-
-
 }
 
-int Date::getDay()
+int Date::getDay() const
 {
 	return day;
 }
 
-int Date::getMonth()
+int Date::getMonth() const
 {
 	return month;
 }
 
-int Date::getHour()
+int Date::getHour() const
 {
 	return hour;
 }
 
-int Date::getMinutes()
+int Date::getMinutes() const
 {
 	return minutes;
 }
@@ -118,16 +110,13 @@ void Date::addMinutes(int min)
 
 }
 
-int Date::operator-( Date &date1)
+int Date::operator-(const Date &date1) const
 {
 	int subtraction_result= 0;
-
 
 	subtraction_result += 24 * (this->day - date1.getDay());
 	subtraction_result += (this->month - date1.getMonth()) * 744;
 	subtraction_result += this->hour - date1.getHour();
 
-
 	return subtraction_result;
-
 }

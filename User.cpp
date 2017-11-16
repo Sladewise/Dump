@@ -10,7 +10,7 @@ double Member::price_month = 30;
 
 User::User(string username)
 {
-	srand(time(NULL));
+	srand(static_cast<unsigned int> (time(NULL)));
 	Date null_date(1,1,0,0);
     Urban_simple_b *null_bike = new Urban_simple_b(null_date);
     bike = null_bike;

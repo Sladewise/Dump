@@ -124,6 +124,33 @@ void HQ::show_stations() const
 	}
 }
 
+void HQ::Reset_Members_MonthlyTime() 
+{
+	for (unsigned int i = 0; i < members.size(); i++)
+		members[i]->setHours(0);
+}
+
+void HQ::Rand_Localization()
+{
+	srand(static_cast<unsigned int> (time(NULL)));
+
+	for (unsigned int i = 0; i < active_users.size(); i++)
+		active_users[i]->setLocalization(rand() % 100 + 1, rand() % 100 + 1);
+}
+
+void HQ::FastForward_Time(int month, int day, int hour, int minute, Date global_date)
+{
+	Date init_date = global_date;
+
+	global_date.addMonth(month);
+	global_date.addDay(day);
+	global_date.addHour(hour);
+	global_date.addMinutes(minute);
+
+	if (((global_date.getDay() > init_date.getDay()) && (init_date.getDay() < 27)) || (global_date.getMonth() > init_date.getMonth()))
+		Reset_Members_MonthlyTime();
+}
+
 void HQ::Main_Menu(Date global_date)
 {
 	int opt;
@@ -164,9 +191,6 @@ void HQ::Main_Menu(Date global_date)
 		case 5:
 			write_info();
 			break;
-
-		default:
-			break;
 		}
 
 	} while (opt != 5);
@@ -188,18 +212,23 @@ void HQ::Bikes_Menu()
 
 		InvalidInput(2, opt);
 
-		switch (opt)
+		try 
 		{
-		case 1:
-			RentBike();
-			break;
+			switch (opt)
+			{
+			case 1:
+				RentBike();
+				break;
 
-		case 2:
-			break;
-
-		default:
-			break;
+			case 2:
+				break;
+			}
 		}
+		catch (Already_Active_User aau)
+		{
+			cout << endl << "User " << aau.getName() << "is already renting a bike.\n";
+		}
+
 	} while (opt != 2);
 }
 
@@ -234,9 +263,6 @@ void HQ::Station_Menu()
 
 		case 4:
 			break;
-
-		default:
-			break;
 		}
 	} while (opt != 4);
 }
@@ -258,21 +284,37 @@ void HQ::Payment_Menu(Date g_date)
 		cin >> opt;
 
 		InvalidInput(3, opt);
-
-		switch (opt)
+		
+		try
 		{
-		case 1:
-			Check_Balance(g_date);
-			break;
+			switch (opt)
+			{
+			case 1:
+				Check_Balance(g_date);
+				break;
 
-		case 2:
-			Check_out(g_date);
-			break;
+			case 2:
+				Check_out(g_date);
+				break;
 
-		default:
-			break;
+			case 3:
+				break;
+			}
+		}
+		catch (Not_Active_User nau)
+		{
+			cout <<  endl << "User " << nau.getName() << "hasn't rented a bike yet.\n";
+		}
+		catch (Inexistent_Station is)
+		{
+			cout << endl << is.getName() << "is not a station.\n";
 		}
 	} while (opt != 3);
+}
+
+void HQ::Options_Menu(Date global_date)
+{
+
 }
 
 void HQ::RentBike()
@@ -594,6 +636,8 @@ void HQ::Check_out(Date g_date)
 			active_users.erase(active_users.begin() + j);
 			s->addBike(u->getBike());
 		}
+		
+		break;
 	}
 }
 
@@ -715,7 +759,7 @@ void HQ::read_info(Date global_date)
 		}
 
 		sstr.clear();
-		addStation(ready_station);
+		stations.push_back(ready_station);
 	}
 
 	read.close();

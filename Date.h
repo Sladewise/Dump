@@ -6,9 +6,6 @@
 
 using namespace std;
 
-
-
-
 class Date
 
 {
@@ -16,15 +13,13 @@ class Date
 	int month;
 	int hour;
 	int minutes;
-
-
 public:
 	
 	Date(int month, int day, int hour, int minutes);
-	int getDay();
-	int getMonth();
-	int getHour();
-	int getMinutes();
+	int getDay() const;
+	int getMonth() const;
+	int getHour() const;
+	int getMinutes() const;
 	void setDay(int d);
 	void setMonth(int m);
 	void setHour(int h);
@@ -33,7 +28,7 @@ public:
 	void addDay(int d);
 	void addHour(int h);
 	void addMinutes(int min);
-	int operator-( Date &date1);
+	int operator-(const Date &date1) const;
 };
 
 #endif

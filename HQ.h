@@ -23,13 +23,14 @@ public:
 	void Main_Menu(Date global_date);
 	void Bikes_Menu();
 	void Station_Menu();
-	void Payment_Menu(Date g_date);
+	void Payment_Menu(Date global_date);
+	void Options_Menu(Date global_date);
 	void RentBike();
 	void Search_Station();
 	void Nearest_Station();
 	void Check_Balance(Date global_date);
 	void Check_out(Date global_date);
-    void addMember(Member member); //Adds new member
+    void addMember(); //Adds new member
     void addActiveUser(User *user); //Adds active user
     void addStation(Station *station); //Adds new station
 	vector<User *> getActiveUsers() const;
@@ -41,6 +42,9 @@ public:
 	vector<Station *> find_bike_type(string type) const;
 	void search_station(string name) const;
 	void show_stations() const;
+	void Reset_Members_MonthlyTime();
+	void Rand_Localization();
+	void FastForward_Time(int month, int day, int hour, int minute, Date global_date);
 };
 
 #endif

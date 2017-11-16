@@ -25,7 +25,7 @@ public:
 ////////////////////URBAN BIKE/////////////////////////////
 class Urban_b : public Bike
 {
-	static double price_h; 
+	static double price_h;
 
 public:
 	Urban_b( Date start_date);
@@ -40,7 +40,6 @@ class Urban_simple_b : public Bike
 public:
 	Urban_simple_b( Date start_date);
 	double getPrice(Date global_date);
-
 };
 
 /////////////////////RACE BIKE///////////////////////////

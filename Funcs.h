@@ -4,6 +4,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include "Date.h"
+#include "Bike.h"
 
 using namespace std;
 
