@@ -25,14 +25,18 @@ public:
 	void Station_Menu();
 	void Payment_Menu(Date global_date);
 	void Options_Menu(Date global_date);
+	void Add_remove_member_menu();
+	void Add_remove_station_menu();
 	void RentBike();
 	void Search_Station();
 	void Nearest_Station();
 	void Check_Balance(Date global_date);
 	void Check_out(Date global_date);
     void addMember(); //Adds new member
+	void removeMember();
     void addActiveUser(User *user); //Adds active user
-    void addStation(Station *station); //Adds new station
+    void addStation(); //Adds new station
+	void removeStation();
 	vector<User *> getActiveUsers() const;
 	vector<Member *> getMembers() const;
 	vector<Station *> getStations() const;

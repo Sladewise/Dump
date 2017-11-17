@@ -43,7 +43,6 @@ public:
     double getPrice() const;
 	int getHours() const;
 	void Checkout(Date global_date);
-
 };
 
 class Regular: public User
@@ -69,6 +68,15 @@ class Not_Active_User
 
 public:
 	Not_Active_User(string nm);
+	string getName() const;
+};
+
+class Another_member
+{
+	string name;
+
+public:
+	Another_member(string am_name);
 	string getName() const;
 };
 

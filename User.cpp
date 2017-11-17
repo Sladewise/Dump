@@ -164,3 +164,20 @@ string Not_Active_User::getName() const
 	return name;
 }
 
+//Another member
+
+Another_member::Another_member(string am_name)
+{
+	name = am_name;
+}
+
+string Another_member::getName() const
+{
+	return name;
+}
+
+
+
+
+
+

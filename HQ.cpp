@@ -18,9 +18,39 @@ void HQ::addActiveUser(User *user)
 	active_users.push_back(user);
 }
 
-void HQ::addStation(Station *station)
+void HQ::addMember()
 {
-	stations.push_back(station);
+	string m_name;
+
+	cout << "Member's name: ";
+	cin >> m_name;
+
+	for (unsigned int i = 0; i < members.size(); i++)
+		if (members[i]->getName() == m_name)
+			throw(Another_member(m_name));
+
+	Member *m = new Member(m_name);
+
+	members.push_back(m);
+}
+
+void HQ::removeMember()
+{
+	string m_name;
+
+	cout << "Member's name: ";
+	cin >> m_name;
+
+	for (unsigned int i = 0; i < members.size(); i++)
+		if (members[i]->getName() == m_name)
+			members.erase(members.begin() + i);
+
+	cout << "There isn't any member with that name.\n";
+}
+
+void HQ::addStation()
+{
+	
 }
 
 vector<User *> HQ::getActiveUsers() const
@@ -314,7 +344,59 @@ void HQ::Payment_Menu(Date g_date)
 
 void HQ::Options_Menu(Date global_date)
 {
+	int opt;
 
+	cout << "+------------------------+\n"
+		<< "| 1 - Add/Remove member  |n"
+		<< "+------------------------+\n"
+		<< "| 2 - Add/Remove station |\n"
+		<< "+------------------------+\n"
+		<< "| 3 - Fast forward       |\n"
+		<< "+------------------------+\n"
+		<< "| 4 - Redistribute bikes |\n"
+		<< "+------------------------+\n" << endl;
+
+	cin >> opt;
+	InvalidInput(4, opt);
+
+	switch (opt)
+	{
+		case 1:
+
+			break;
+
+	}
+}
+
+void HQ::Add_remove_member_menu()
+{
+	int opt;
+	
+	cout << "+-------------------+\n"
+		<< "| 1 - Add member    |\n"
+		<< "+-------------------+\n"
+		<< "| 2 - Remove member |\n"
+		<< "+-------------------+\n" << endl;
+
+	cin >> opt;
+	InvalidInput(2, opt);
+
+	try
+	{
+		switch (opt)
+		{
+		case 1:
+			addMember();
+			break;
+		case 2:
+			removeMember();
+			break;
+		}
+	}
+	catch (Another_member)
+	{
+		cout << "There's already another member with the same name.\n";
+	}
 }
 
 void HQ::RentBike()
