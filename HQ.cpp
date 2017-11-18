@@ -43,14 +43,83 @@ void HQ::removeMember()
 
 	for (unsigned int i = 0; i < members.size(); i++)
 		if (members[i]->getName() == m_name)
+		{
 			members.erase(members.begin() + i);
+			return;
+		}
 
 	cout << "There isn't any member with that name.\n";
 }
 
 void HQ::addStation()
 {
+	string nm;
+	int n_mxs, x_coord, y_coord;
 	
+	cout << endl << "Name: ";
+	cin >> nm;
+
+	for (unsigned int i = 0; i < stations.size(); i++)
+		if (stations[i]->getName() == nm)
+			throw(Another_station(nm, stations[i]->getLocalization().first, stations[i]->getLocalization().second));
+
+	cout << "Number of spots: ";
+	cin >> n_mxs;
+
+	while (cin.fail())
+	{
+		cin.clear();
+		cin.ignore(1000, '\n');
+		cout << "Invalid input. Please try again.\n";
+		cin >> n_mxs;
+	}
+
+	cout << "X coordinates: ";
+	cin >> x_coord;
+
+	while (cin.fail())
+	{
+		cin.clear();
+		cin.ignore(1000, '\n');
+		cout << "Invalid input. Please try again.\n";
+		cin >> x_coord;
+	}
+
+	cout << "Y coordinates: ";
+	cin >> y_coord;
+
+	while (cin.fail())
+	{
+		cin.clear();
+		cin.ignore(1000, '\n');
+		cout << "Invalid input. Please try again.\n";
+		cin >> y_coord;
+	}
+
+	for (unsigned int i = 0; i < stations.size(); i++)
+		if (stations[i]->getLocalization().first == x_coord && stations[i]->getLocalization().second == y_coord)
+			throw(Another_station(stations[i]->getName(), x_coord, y_coord));
+
+	Station *s = new Station(n_mxs, nm, x_coord, y_coord);
+
+	stations.push_back(s);
+}
+
+void HQ::removeStation()
+{
+	string nm;
+
+	cout << "Name: ";
+	cin >> nm;
+
+	for (unsigned int i = 0; i < stations.size(); i++)
+		if (stations[i]->getName() == nm)
+		{
+			stations.erase(stations.begin() + i);
+			return;
+		}
+
+	cout << "There isn't any station named " << nm << endl;
 }
 
 vector<User *> HQ::getActiveUsers() const
@@ -168,7 +237,7 @@ void HQ::Rand_Localization()
 		active_users[i]->setLocalization(rand() % 100 + 1, rand() % 100 + 1);
 }
 
-void HQ::FastForward_Time(int month, int day, int hour, int minute, Date global_date)
+void HQ::FastForward_Time(int month, int day, int hour, int minute, Date &global_date)
 {
 	Date init_date = global_date;
 
@@ -181,7 +250,7 @@ void HQ::FastForward_Time(int month, int day, int hour, int minute, Date global_
 		Reset_Members_MonthlyTime();
 }
 
-void HQ::Main_Menu(Date global_date)
+void HQ::Main_Menu(Date &global_date)
 {
 	int opt;
 	
@@ -215,7 +284,7 @@ void HQ::Main_Menu(Date global_date)
 			break;
 
 		case 4:
-
+			Options_Menu(global_date);
 			break;
 
 		case 5:
@@ -342,12 +411,12 @@ void HQ::Payment_Menu(Date g_date)
 	} while (opt != 3);
 }
 
-void HQ::Options_Menu(Date global_date)
+void HQ::Options_Menu(Date &global_date)
 {
 	int opt;
 
 	cout << "+------------------------+\n"
-		<< "| 1 - Add/Remove member  |n"
+		<< "| 1 - Add/Remove member  |\n"
 		<< "+------------------------+\n"
 		<< "| 2 - Add/Remove station |\n"
 		<< "+------------------------+\n"
@@ -362,9 +431,19 @@ void HQ::Options_Menu(Date global_date)
 	switch (opt)
 	{
 		case 1:
-
+			Add_remove_member_menu();
 			break;
 
+		case 2:
+			Add_remove_station_menu();
+			break;
+
+		case 3:
+			fast_forward_menu(*this, global_date);
+
+		case 4:
+
+			break;
 	}
 }
 
@@ -396,6 +475,39 @@ void HQ::Add_remove_member_menu()
 	catch (Another_member)
 	{
 		cout << "There's already another member with the same name.\n";
+	}
+}
+
+void HQ::Add_remove_station_menu()
+{
+	int opt;
+
+	cout << "+--------------------+\n"
+		<< "| 1 - Add station    |\n"
+		<< "+--------------------+\n"
+		<< "| 2 - Remove station |\n"
+		<< "+--------------------+\n" << endl;
+
+	cin >> opt;
+	InvalidInput(2, opt);
+
+	try
+	{
+		switch (opt)
+		{
+		case 1:
+			addStation();
+			break;
+
+		case 2:
+			removeStation();
+			break;
+		}
+	}
+	catch (Another_station as)
+	{
+		cout << "There's already a station named " << as.getName()
+			<< "at " << as.getLocalization().first << "," << as.getLocalization().second << endl;
 	}
 }
 
@@ -779,7 +891,7 @@ void HQ::read_info(Date global_date)
 		sstr.clear();
 		getline(read, txt_line);
 		sstr.str(txt_line);
-		sstr >> month >> comma >> day >> comma >> hour >> comma >> minute;
+		sstr >> day >> comma >> month >> comma >> hour >> comma >> minute;
 		sstr.clear();
 		Date bike_date(month, day, hour, minute);
 		
@@ -859,8 +971,8 @@ void HQ::write_info()
 		write << active_users[i]->getName() << endl
 			<< active_users[i]->getLocalization().first << " , " << active_users[i]->getLocalization().second << endl
 			<< active_users[i]->getBike()->getID() << endl
-			<< active_users[i]->getBike()->getDate().getMonth() << " / "
-			<< active_users[i]->getBike()->getDate().getDay() << " ; "
+			<< active_users[i]->getBike()->getDate().getDay() << " / "
+			<< active_users[i]->getBike()->getDate().getMonth() << " ; "
 			<< active_users[i]->getBike()->getDate().getHour() << " : "
 			<< active_users[i]->getBike()->getDate().getMinutes() << endl;
 	}

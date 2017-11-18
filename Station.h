@@ -26,6 +26,7 @@ public:
 	int getMaxSpots() const;
 	int getSpots() const;
 	void show_station() const;
+	bool operator==(const Station *s) const;
 };
 
 class Inexistent_Station
@@ -35,6 +36,17 @@ class Inexistent_Station
 public:
 	Inexistent_Station(string nm);
 	string getName() const;
+};
+
+class Another_station
+{
+	string name;
+	pair<int, int> Localization;
+
+public:
+	Another_station(string nm, int x, int y);
+	string getName() const;
+	pair<int, int> getLocalization() const;
 };
 
 #endif

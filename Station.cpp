@@ -90,6 +90,13 @@ void Station::show_station() const
 		<< "Racing: " << n_rc << endl << endl;
 }
 
+bool Station::operator==(const Station *s) const
+{
+	if (s->getName() == name || s->getLocalization() == Localization)
+		return true;
+	else return false;
+}
+
 //Inexistant Station
 
 Inexistent_Station::Inexistent_Station(string nm)
@@ -100,5 +107,25 @@ Inexistent_Station::Inexistent_Station(string nm)
 string Inexistent_Station::getName() const
 {
 	return name;
+}
+
+//Another Station
+
+Another_station::Another_station(string nm, int x, int y)
+{
+	name = nm;
+	
+	Localization.first = x;
+	Localization.second = y;
+}
+
+string Another_station::getName() const
+{
+	return name;
+}
+
+pair<int, int> Another_station::getLocalization() const
+{
+	return Localization;
 }
 

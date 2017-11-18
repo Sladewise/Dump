@@ -1,7 +1,7 @@
 CMV
 90 , 90
 15
-US , UB , RC , CH ;
+US , UB , CH ;
 Forro
 40 , 50
 20

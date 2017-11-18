@@ -19,27 +19,27 @@ class HQ
 public:
     HQ();
 	void read_info(Date global_date); //Reads from file and fills the vectors
-	void write_info();//Writes the data from the vectors to the text files
-	void Main_Menu(Date global_date);
-	void Bikes_Menu();
-	void Station_Menu();
-	void Payment_Menu(Date global_date);
-	void Options_Menu(Date global_date);
-	void Add_remove_member_menu();
-	void Add_remove_station_menu();
-	void RentBike();
-	void Search_Station();
-	void Nearest_Station();
-	void Check_Balance(Date global_date);
-	void Check_out(Date global_date);
-    void addMember(); //Adds new member
-	void removeMember();
-    void addActiveUser(User *user); //Adds active user
-    void addStation(); //Adds new station
-	void removeStation();
-	vector<User *> getActiveUsers() const;
-	vector<Member *> getMembers() const;
-	vector<Station *> getStations() const;
+	void write_info(); //Writes the data from the vectors to the text files
+	void Main_Menu(Date &global_date); //Main user interface
+	void Bikes_Menu(); //Interface related to the Bikes
+	void Station_Menu(); //Interface related to the Stations
+	void Payment_Menu(Date global_date); //Interface related to the payment options
+	void Options_Menu(Date &global_date); //Interface with several options for testing purposes
+	void Add_remove_member_menu(); //Interface regarding the addition or removal of members
+	void Add_remove_station_menu(); //Interface regarding the addition or removal of stations
+	void RentBike(); //Initiates the renting process of a bike
+	void Search_Station(); //Searches for a particular station and, if found, returns information about it
+	void Nearest_Station(); //Returns information about the closest station to the user
+	void Check_Balance(Date global_date); //Shows how much a regular active user has to pay so far or how much a member has to pay at the end of the month
+	void Check_out(Date global_date); //Initiates the process of returning a bike and payment(if necessary)
+    void addMember(); //Adds a new member
+	void removeMember(); //Removes an existing member
+    void addActiveUser(User *user); //Adds an active user
+    void addStation(); //Adds a new station
+	void removeStation(); //Removes an existing station
+	vector<User *> getActiveUsers() const; //Returns the active users vector
+	vector<Member *> getMembers() const; //Returns the members vector
+	vector<Station *> getStations() const; //Returns the stations vector
     int find_Member(string name); //Returns the index of the member in the HQ vector, else returns -1
     int find_ActiveUser(string name);  //Returns the index of the active user in the HQ vector, else returns -1
 	int find_Station(string name); //Returns the index of the station in the HQ vector, else returns -1
@@ -48,7 +48,7 @@ public:
 	void show_stations() const;
 	void Reset_Members_MonthlyTime();
 	void Rand_Localization();
-	void FastForward_Time(int month, int day, int hour, int minute, Date global_date);
+	void FastForward_Time(int month, int day, int hour, int minute, Date &global_date);
 };
 
 #endif
