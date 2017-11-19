@@ -11,10 +11,10 @@
 using namespace std;
 
 template <class T>
-int find_element(vector<T> vt, T element)
+int find_element(vector<T *> vt, T *element)
 {
 	for (unsigned int i = 0; i < vt.size(); i++)
-		if (vt[i] == element)
+		if (*vt[i] == *element)
 			return i;
 
 	return -1;

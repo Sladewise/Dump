@@ -234,7 +234,7 @@ void HQ::Rand_Localization()
 	srand(static_cast<unsigned int> (time(NULL)));
 
 	for (unsigned int i = 0; i < active_users.size(); i++)
-		active_users[i]->setLocalization(rand() % 100 + 1, rand() % 100 + 1);
+		active_users[i]->setLocalization(rand() % 15 + 1, rand() % 15 + 1);
 }
 
 void HQ::FastForward_Time(int month, int day, int hour, int minute, Date &global_date)
@@ -248,16 +248,23 @@ void HQ::FastForward_Time(int month, int day, int hour, int minute, Date &global
 
 	if (((global_date.getDay() > init_date.getDay()) && (init_date.getDay() < 27)) || (global_date.getMonth() > init_date.getMonth()))
 		Reset_Members_MonthlyTime();
+
+	Rand_Localization();
 }
 
 void HQ::Main_Menu(Date &global_date)
 {
 	int opt;
 	
+	
 
 	do
 	{
-		cout << "+-------------+--------------+\n"
+		system("cls");
+
+		cout << "+----------------------------+\n"
+			<< "|         RENT-A-BIKE        |\n"
+			<< "+-------------+--------------+\n"
 			<< "| 1 - Bikes   | 2 - Stations |\n"
 			<< "+-------------+--------------+\n"
 			<< "| 3 - Payment | 4 - Options  |\n"
@@ -325,7 +332,7 @@ void HQ::Bikes_Menu()
 		}
 		catch (Already_Active_User aau)
 		{
-			cout << endl << "User " << aau.getName() << "is already renting a bike.\n";
+			cout << endl << "User " << aau.getName() << " is already renting a bike.\n";
 		}
 
 	} while (opt != 2);
@@ -591,7 +598,7 @@ void HQ::RentBike()
 
 	closest_station = u->getClosestStation(vs);
 	cout << "The nearest station with that type of bike (" << closest_station->getName() << ") is "
-		<< calc_distance(closest_station->getLocalization().first, closest_station->getLocalization().second,
+		<< fixed << setprecision(2) << calc_distance(closest_station->getLocalization().first, closest_station->getLocalization().second,
 			u->getLocalization().first, u->getLocalization().second)
 		<< "km away. Are you sure you want to continue? (y/n)\n";
 
@@ -698,12 +705,8 @@ void HQ::Check_Balance(Date g_date)
 
 	if (i != -1)
 	{
-		cout << "You've accumulated " << getMembers()[i]->getHours() << " hours so far this month.\n";
-
-		if (getMembers()[i]->getHours() >= 20)
-			cout << "This month's bill: " << getMembers()[i]->getPrice() << endl;
-		else
-			cout << "This month's bill: " << getMembers()[i]->getPrice() << endl;
+		cout << "You've accumulated " << members[i]->getHours() << " hours so far this month.\n";
+		cout << "This month's bill: " << members[i]->getPrice() << endl;
 	}
 	else
 	{
@@ -711,9 +714,9 @@ void HQ::Check_Balance(Date g_date)
 
 		if (i != -1)
 		{
-			n_hours = g_date - getActiveUsers()[i]->getBike()->getDate();
+			n_hours = g_date - active_users[i]->getBike()->getDate();
 
-			cout << "Value to pay at checkout (so far): " << n_hours * getActiveUsers()[i]->getPrice() << endl;
+			cout << "Value to pay at checkout (so far): " << n_hours * active_users[i]->getPrice() << endl;
 		}
 		else
 		{
@@ -727,7 +730,7 @@ void HQ::Check_out(Date g_date)
 {
 	vector<Station *> available_stations;
 	string username, station_name;
-	int i, j, st, opt;
+	int i, j, st, opt, n_hours;
 	bool member = false;
 	User *u = NULL;
 	Member *m = NULL;
@@ -766,8 +769,13 @@ void HQ::Check_out(Date g_date)
 			throw(Not_Active_User(username));
 	}
 
-	cout << "The closest station with available spots is /n" << endl;
-	s = u->getClosestStation(available_stations);
+	cout << "The closest station with available spots is: \n" << endl;
+	
+	if(member)
+		s = m->getClosestStation(available_stations);
+	else
+		s = u->getClosestStation(available_stations);
+
 	s->show_station();
 
 	cout << "+------------------------------+\n"
@@ -787,12 +795,14 @@ void HQ::Check_out(Date g_date)
 		if (member)
 		{
 			m->Checkout(g_date);
+			m->setLocalization(s->getLocalization().first, s->getLocalization().second);
 			active_users.erase(active_users.begin() + i);
 			s->addBike(m->getBike());
 		}
 		else
 		{
 			u->Checkout(g_date);
+			u->setLocalization(s->getLocalization().first, s->getLocalization().second);
 			active_users.erase(active_users.begin() + j);
 			s->addBike(u->getBike());
 		}
@@ -821,12 +831,14 @@ void HQ::Check_out(Date g_date)
 		if (member)
 		{
 			m->Checkout(g_date);
+			m->setLocalization(s->getLocalization().first, s->getLocalization().second);
 			active_users.erase(active_users.begin() + i);
 			s->addBike(m->getBike());
 		}
 		else
 		{
 			u->Checkout(g_date);
+			u->setLocalization(s->getLocalization().first, s->getLocalization().second);
 			active_users.erase(active_users.begin() + j);
 			s->addBike(u->getBike());
 		}

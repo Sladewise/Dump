@@ -54,7 +54,7 @@ void fast_forward_menu(HQ hq, Date &global_date)
 			break;
 
 		case 2:
-			cout << "Number of minutes: ";
+			cout << "Number of hours: ";
 			cin >> n_hr;
 
 			while (cin.fail())
@@ -69,7 +69,7 @@ void fast_forward_menu(HQ hq, Date &global_date)
 			break;
 
 		case 3:
-			cout << "Number of minutes: ";
+			cout << "Number of days: ";
 			cin >> n_d;
 
 			while (cin.fail())
@@ -84,7 +84,7 @@ void fast_forward_menu(HQ hq, Date &global_date)
 			break;
 
 		case 4:
-			cout << "Number of minutes: ";
+			cout << "Number of months: ";
 			cin >> n_mt;
 
 			while (cin.fail())

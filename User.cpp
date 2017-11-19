@@ -16,8 +16,8 @@ User::User(string username)
     bike = null_bike;
     name = username;
     active = false;
-	Localization.first = rand() % 100 + 1;
-	Localization.second = rand() % 100 + 1;
+	Localization.first = rand() % 15 + 1;
+	Localization.second = rand() % 15 + 1;
 }
 
 string User::getName() const
@@ -93,7 +93,14 @@ double User::getPrice() const
 	return price_hour;
 }
 
-void User::Checkout(Date global_date){}
+void User::Checkout(Date global_date)
+{
+	double price = getBike()->getPrice(global_date);
+
+	cout << endl << "Total cost: " << setprecision(2) << price << " euros\n";
+
+	set_active(false);
+}
 
 //Member
 
@@ -122,8 +129,8 @@ double Member::getPrice() const
 void Member::Checkout(Date global_date)
 {
 	int n_hours = global_date - getBike()->getDate();
-
 	total_monthly_time += n_hours;
+	cout << "This month's bill: " << fixed << setprecision(2) << getPrice() << " euros" << endl;
 	set_active(false);
 }
 
@@ -131,14 +138,7 @@ void Member::Checkout(Date global_date)
 
 Regular::Regular(string username) : User(username) {}
 
-void Regular::Checkout(Date global_date)
-{
-	double price = getBike()->getPrice(global_date);
-
-	cout << endl << "Total cost: " << setprecision(2) << price << endl;
-
-	set_active(false);
-}
+void Regular::Checkout(Date global_date){}
 
 //Already Active User
 
