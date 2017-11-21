@@ -5,4 +5,4 @@ UB , CH , CH ;
 Forro
 4 , 5
 20
-CH , UB , RC , US ;
+CH , UB , RC ;

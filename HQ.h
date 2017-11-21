@@ -29,7 +29,7 @@ public:
 	void Add_remove_member_menu(); //Interface regarding the addition or removal of members
 	void Add_remove_station_menu(); //Interface regarding the addition or removal of stations
 	void RentBike(); //Initiates the renting process of a bike
-	void Search_Station(); //Searches for a particular station and, if found, returns information about it
+	void Search_Station() const; //Searches for a particular station and, if found, returns information about it
 	void Nearest_Station(); //Returns information about the closest station to the user
 	void Check_Balance(Date global_date); //Shows how much a regular active user has to pay so far or how much a member has to pay at the end of the month
 	void Check_out(Date global_date); //Initiates the process of returning a bike and payment(if necessary)

@@ -4,6 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <cmath>
 #include "Date.h"
 #include "Bike.h"
 #include "HQ.h"

@@ -1,6 +1,9 @@
 Johny Cash
-4 , 2
+4 , 5
 12
 Labaredas
 2 , 8
 6
+Eduardo L
+9 , 9
+0

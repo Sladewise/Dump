@@ -23,7 +23,7 @@ void HQ::addMember()
 	string m_name;
 
 	cout << "Member's name: ";
-	cin >> m_name;
+	getline(cin, m_name);
 
 	for (unsigned int i = 0; i < members.size(); i++)
 		if (members[i]->getName() == m_name)
@@ -39,7 +39,7 @@ void HQ::removeMember()
 	string m_name;
 
 	cout << "Member's name: ";
-	cin >> m_name;
+	getline(cin, m_name);
 
 	for (unsigned int i = 0; i < members.size(); i++)
 		if (members[i]->getName() == m_name)
@@ -57,7 +57,7 @@ void HQ::addStation()
 	int n_mxs, x_coord, y_coord;
 	
 	cout << endl << "Name: ";
-	cin >> nm;
+	getline(cin, nm);
 
 	for (unsigned int i = 0; i < stations.size(); i++)
 		if (stations[i]->getName() == nm)
@@ -110,7 +110,7 @@ void HQ::removeStation()
 	string nm;
 
 	cout << "Name: ";
-	cin >> nm;
+	getline(cin, nm);
 
 	for (unsigned int i = 0; i < stations.size(); i++)
 		if (stations[i]->getName() == nm)
@@ -273,6 +273,8 @@ void HQ::Main_Menu(Date &global_date)
 			<< "+----------------------------+\n" << endl;
 
 		cin >> opt;
+		cin.clear();
+		cin.ignore(1000, '\n');
 
 		InvalidInput(5, opt);
 
@@ -317,6 +319,8 @@ void HQ::Bikes_Menu()
 		cin >> opt;
 
 		InvalidInput(2, opt);
+		cin.clear();
+		cin.ignore(1000, '\n');
 
 		try 
 		{
@@ -352,6 +356,8 @@ void HQ::Station_Menu()
 		cin >> opt;
 
 		InvalidInput(4, opt);
+		cin.clear();
+		cin.ignore(1000, '\n');
 
 		switch (opt)
 		{
@@ -390,6 +396,8 @@ void HQ::Payment_Menu(Date g_date)
 		cin >> opt;
 
 		InvalidInput(3, opt);
+		cin.clear();
+		cin.ignore(1000, '\n');
 		
 		try
 		{
@@ -434,6 +442,8 @@ void HQ::Options_Menu(Date &global_date)
 
 	cin >> opt;
 	InvalidInput(4, opt);
+	cin.clear();
+	cin.ignore(1000, '\n');
 
 	switch (opt)
 	{
@@ -466,6 +476,8 @@ void HQ::Add_remove_member_menu()
 
 	cin >> opt;
 	InvalidInput(2, opt);
+	cin.clear();
+	cin.ignore(1000, '\n');
 
 	try
 	{
@@ -497,6 +509,8 @@ void HQ::Add_remove_station_menu()
 
 	cin >> opt;
 	InvalidInput(2, opt);
+	cin.clear();
+	cin.ignore(1000, '\n');
 
 	try
 	{
@@ -528,14 +542,14 @@ void HQ::RentBike()
 	Station *closest_station;
 
 	cout << "Username: ";
-	cin >> name;
+	getline(cin, name);
 
 	while (cin.fail())
 	{
 		cin.clear();
 		cin.ignore(1000, '\n');
 		cout << "Invalid input. Please try again.\n";
-		cin >> name;
+		getline(cin, name);
 	}
 
 	if (find_ActiveUser(name) != -1)
@@ -566,6 +580,8 @@ void HQ::RentBike()
 	cin >> opt;
 
 	InvalidInput(4, opt);
+	cin.clear();
+	cin.ignore(1000, '\n');
 
 	switch (opt)
 	{
@@ -628,12 +644,12 @@ void HQ::RentBike()
 	return;
 }
 
-void HQ::Search_Station()
+void HQ::Search_Station() const
 {
 	string s_name;
 
 	cout << "Station name: ";
-	cin >> s_name;
+	getline(cin, s_name);
 
 	while (cin.fail())
 	{
@@ -653,7 +669,7 @@ void HQ::Nearest_Station()
 	User *u;
 
 	cout << "Username: ";
-	cin >> username;
+	getline(cin, username);
 	cout << endl;
 
 	while (cin.fail())
@@ -741,7 +757,7 @@ void HQ::Check_out(Date g_date)
 			available_stations.push_back(getStations()[i]);
 
 	cout << "Username: ";
-	cin >> username;
+	getline(cin, username);
 	cout << endl;
 
 	while (cin.fail())
@@ -787,6 +803,8 @@ void HQ::Check_out(Date g_date)
 	cin >> opt;
 
 	InvalidInput(2, opt);
+	cin.clear();
+	cin.ignore(1000, '\n');
 
 	switch (opt)
 	{
@@ -811,7 +829,7 @@ void HQ::Check_out(Date g_date)
 
 	case 2:
 		cout << "Station name: ";
-		cin >> station_name;
+		getline(cin, station_name);
 
 		while (cin.fail())
 		{
@@ -1016,8 +1034,3 @@ void HQ::write_info() const
 
 	write.close();
 }
-
-
-
-
-
