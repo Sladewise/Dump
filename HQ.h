@@ -20,7 +20,7 @@ class HQ
 public:
     HQ();
 	void read_info(Date global_date); //Reads from file and fills the vectors
-	void write_info(); //Writes the data from the vectors to the text files
+	void write_info() const; //Writes the data from the vectors to the text files
 	void Main_Menu(Date &global_date); //Main user interface
 	void Bikes_Menu(); //Interface related to the Bikes
 	void Station_Menu(); //Interface related to the Stations

@@ -971,7 +971,7 @@ void HQ::read_info(Date global_date)
 	read.close();
 }
 
-void HQ::write_info()
+void HQ::write_info() const
 {
 	ofstream write;
 	unsigned int i, j;
