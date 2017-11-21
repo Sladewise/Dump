@@ -1,8 +1,8 @@
 CMV
 15 , 15
 15
-UB , CH , CH ;
+CH , CH , UB ;
 Forro
 4 , 5
 20
-CH , UB , RC ;
+CH , UB , RC , RC , US ;

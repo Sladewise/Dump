@@ -13,17 +13,17 @@ class User
     bool active;
     Bike *bike;
     string name;
-	pair <int, int> Localization;
+	pair <unsigned int, unsigned int> Localization;
 
 public:
 	static double price_hour;
 	User(string username);
 	void setName(string new_name);
-	void setLocalization(int x, int y);
+	void setLocalization(unsigned int x, unsigned int y);
 	void setBike(Bike *bk);
 	void set_active(bool cond);
 	string getName() const;
-	pair<int, int> getLocalization() const;
+	pair<unsigned int, unsigned int> getLocalization() const;
     Station* getClosestStation(vector<Station *> vs) const;
 	Bike* getBike() const;
     virtual double getPrice() const;
@@ -40,6 +40,7 @@ class Member: public User
 public:
     Member(string username);
 	void setHours(int hours);
+	void addHours(int hours);
     double getPrice() const;
 	int getHours() const;
 	void Checkout(Date global_date);

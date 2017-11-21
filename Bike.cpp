@@ -24,6 +24,11 @@ string Bike::getID()
 	return ID;
 }
 
+void Bike::setDate(Date &date)
+{
+	start_date = date;
+}
+
 ////////////////////URBAN BIKE/////////////////////////////
 
 Urban_b::Urban_b(Date start_date) :Bike(start_date)

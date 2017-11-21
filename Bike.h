@@ -15,11 +15,12 @@ protected:
 	Date start_date;
 	
 public:
-	Bike( Date start_date);
+	Bike(Date start_date);
 	void setID(string Id);
 	Date getDate();
 	virtual double getPrice(Date global_date) = 0;
 	string getID() ;
+	void setDate(Date &date);
 };
 
 ////////////////////URBAN BIKE/////////////////////////////

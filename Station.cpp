@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Station::Station(int max_spots,string name, int x, int y)
+Station::Station(int max_spots,string name, unsigned int x, unsigned int y)
 {
     vector<Bike *> empty_available_bikes;
 
@@ -39,7 +39,7 @@ bool Station::findBike(string type) const
 	return false;
 }
 
-pair<int, int> Station::getLocalization() const
+pair<unsigned int, unsigned int> Station::getLocalization() const
 {
 	return Localization;
 }
@@ -111,7 +111,7 @@ string Inexistent_Station::getName() const
 
 //Another Station
 
-Another_station::Another_station(string nm, int x, int y)
+Another_station::Another_station(string nm, unsigned int x, unsigned int y)
 {
 	name = nm;
 	
@@ -124,7 +124,7 @@ string Another_station::getName() const
 	return name;
 }
 
-pair<int, int> Another_station::getLocalization() const
+pair<unsigned int, unsigned int> Another_station::getLocalization() const
 {
 	return Localization;
 }

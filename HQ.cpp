@@ -54,7 +54,8 @@ void HQ::removeMember()
 void HQ::addStation()
 {
 	string nm;
-	int n_mxs, x_coord, y_coord;
+	int n_mxs;
+	unsigned int x_coord, y_coord;
 	
 	cout << endl << "Name: ";
 	getline(cin, nm);
@@ -246,18 +247,30 @@ void HQ::FastForward_Time(int month, int day, int hour, int minute, Date &global
 	global_date.addHour(hour);
 	global_date.addMinutes(minute);
 
-	if (((global_date.getDay() > init_date.getDay()) && (init_date.getDay() < 27)) || (global_date.getMonth() > init_date.getMonth()))
+	if (((global_date.getDay() > init_date.getDay()) && ((init_date.getDay() < 27) && (global_date.getDay() >= 27)))
+		|| (global_date.getMonth() > init_date.getMonth()))
 		Reset_Members_MonthlyTime();
+	else
+		addHoursActiveMembers(global_date);
 
 	Rand_Localization();
+}
+
+void HQ::addHoursActiveMembers(Date &global_date)
+{
+	for (unsigned int i = 0; i < active_users.size(); i++)
+		for (unsigned int j = 0; j < members.size(); j++)
+			if (members.at(j)->getName() == active_users.at(i)->getName())
+			{
+				members.at(j)->addHours(global_date - members.at(j)->getBike()->getDate());
+				members.at(j)->getBike()->setDate(global_date);
+			}
 }
 
 void HQ::Main_Menu(Date &global_date)
 {
 	int opt;
 	
-	
-
 	do
 	{
 		system("cls");
@@ -746,7 +759,7 @@ void HQ::Check_out(Date g_date)
 {
 	vector<Station *> available_stations;
 	string username, station_name;
-	int i, j, st, opt, n_hours;
+	int i, j, st, opt;
 	bool member = false;
 	User *u = NULL;
 	Member *m = NULL;
@@ -814,7 +827,7 @@ void HQ::Check_out(Date g_date)
 		{
 			m->Checkout(g_date);
 			m->setLocalization(s->getLocalization().first, s->getLocalization().second);
-			active_users.erase(active_users.begin() + i);
+			active_users.erase(active_users.begin() + j);
 			s->addBike(m->getBike());
 		}
 		else
@@ -850,7 +863,7 @@ void HQ::Check_out(Date g_date)
 		{
 			m->Checkout(g_date);
 			m->setLocalization(s->getLocalization().first, s->getLocalization().second);
-			active_users.erase(active_users.begin() + i);
+			active_users.erase(active_users.begin() + j);
 			s->addBike(m->getBike());
 		}
 		else
@@ -870,7 +883,8 @@ void HQ::read_info(Date global_date)
 	ifstream read;
 	istringstream sstr;		
 	string txt_line, comma, bike_id, s_name;
-	int x, y, month_hours, i, month, day, hour, minute, max_spots;
+	int month_hours, i, month, day, hour, minute, max_spots;
+	unsigned int x, y;
 	bool member = false;
 	Bike *user_bike, *station_bike;
 	User *ready_active_user = new User("null");

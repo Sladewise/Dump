@@ -25,7 +25,7 @@ string User::getName() const
     return name;
 }
 
-pair<int, int> User::getLocalization() const
+pair<unsigned int, unsigned int> User::getLocalization() const
 {
 	return Localization;
 }
@@ -40,7 +40,7 @@ void User::setName(string new_name)
 	name = new_name;
 }
 
-void User::setLocalization(int x, int y)
+void User::setLocalization(unsigned int x, unsigned int y)
 {
 	Localization.first = x;
 	Localization.second = y;
@@ -71,7 +71,7 @@ void User::removeBike()
 Station* User::getClosestStation(vector<Station *> vs) const
 {
 	unsigned int i = 0, i_min = 0;
-	pair<int, int> stat_loc = vs[i]->getLocalization();
+	pair<unsigned int, unsigned int> stat_loc = vs[i]->getLocalization();
 	double min = sqrt(pow(stat_loc.first - Localization.first, 2) + pow(stat_loc.second - Localization.second, 2));
 
 	for (i; i < vs.size(); i++)
@@ -112,6 +112,11 @@ Member::Member(string username) : User(username)
 void Member::setHours(int hours)
 {
 	total_monthly_time = hours;
+}
+
+void Member::addHours(int hours)
+{
+	total_monthly_time += hours;
 }
 
 int Member::getHours() const

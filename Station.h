@@ -13,14 +13,14 @@ class Station
     int no_max_spots;
 	string name;
     vector<Bike *> available_bikes;
-	pair <int, int> Localization;
+	pair <unsigned int, unsigned int> Localization;
 	
 public:
-    Station(int max_spots, string name, int x, int y);
+    Station(int max_spots, string name, unsigned int x, unsigned int y);
     bool findBike(string type) const;
 	void addBike(Bike *bk);
 	void removeBike(string bike_id);
-	pair<int, int> getLocalization() const;
+	pair<unsigned int, unsigned int> getLocalization() const;
 	vector<Bike *> getAvailableBikes() const;
 	string getName() const;
 	int getMaxSpots() const;
@@ -41,12 +41,12 @@ public:
 class Another_station
 {
 	string name;
-	pair<int, int> Localization;
+	pair<unsigned int, unsigned int> Localization;
 
 public:
-	Another_station(string nm, int x, int y);
+	Another_station(string nm, unsigned int x, unsigned int y);
 	string getName() const;
-	pair<int, int> getLocalization() const;
+	pair<unsigned int,unsigned int> getLocalization() const;
 };
 
 #endif

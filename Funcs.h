@@ -22,7 +22,7 @@ int find_element(vector<T *> vt, T *element)
 }
 
 void InvalidInput(int n_op, int &op);
-double calc_distance(int x1, int y1, int x2, int y2);
+double calc_distance(unsigned int x1, unsigned int y1, unsigned int x2, unsigned int y2);
 void fast_forward_menu(HQ hq, Date &global_date);
 Date read_date();
 void write_date(Date global_date);

@@ -50,6 +50,7 @@ public:
 	void Reset_Members_MonthlyTime();
 	void Rand_Localization();
 	void FastForward_Time(int month, int day, int hour, int minute, Date &global_date);
+	void addHoursActiveMembers(Date &global_date);
 };
 
 #endif
