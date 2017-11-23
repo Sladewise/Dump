@@ -51,11 +51,12 @@ void HQ::removeMember()
 	cout << "There isn't any member with that name.\n";
 }
 
-void HQ::addStation()
+void HQ::addStation(Date global_date)
 {
 	string nm;
-	int n_mxs;
-	unsigned int x_coord, y_coord;
+	int n_mxs, opt1, opt2;
+	vector<Bike *> vb;
+	int x_coord, y_coord;
 	
 	cout << endl << "Name: ";
 	getline(cin, nm);
@@ -78,22 +79,31 @@ void HQ::addStation()
 	cout << "X coordinates: ";
 	cin >> x_coord;
 
-	while (cin.fail())
+	while (cin.fail() || x_coord <= 0)
 	{
 		cin.clear();
 		cin.ignore(1000, '\n');
-		cout << "Invalid input. Please try again.\n";
+		
+		if (x_coord <= 0)
+			cout << "Coordinates have to be greater than 0.\n";
+		else
+			cout << "Invalid input. Please try again.\n";
 		cin >> x_coord;
 	}
 
 	cout << "Y coordinates: ";
 	cin >> y_coord;
 
-	while (cin.fail())
+	while (cin.fail() || y_coord <= 0)
 	{
 		cin.clear();
 		cin.ignore(1000, '\n');
-		cout << "Invalid input. Please try again.\n";
+		
+		if (y_coord <= 0)
+			cout << "Coordinates have to be greater than 0.\n";
+		else
+			cout << "Invalid input. Please try again.\n";
+
 		cin >> y_coord;
 	}
 
@@ -102,6 +112,60 @@ void HQ::addStation()
 			throw(Another_station(stations[i]->getName(), x_coord, y_coord));
 
 	Station *s = new Station(n_mxs, nm, x_coord, y_coord);
+
+	do
+	{
+		cout << "+--------------+\n"
+			<<  "| 1 - Add bike |\n"
+			<< "+--------------+\n"
+			<< "| 2 - Go back  |\n"
+			<< "+--------------+\n" << endl;
+
+		cin >> opt1;
+		InvalidInput(2, opt1);
+
+		switch (opt1)
+		{
+			case 1:
+				cout << "+------------------+\n"
+					<< "|   Type of bike   |\n"
+					<< "+------------------+\n"
+					<< "|     1 - Urban    |\n"
+					<< "+------------------+\n"
+					<< "| 2 - Simple Urban |\n"
+					<< "+------------------+\n"
+					<< "|     3 - Child    |\n"
+					<< "+------------------+\n"
+					<< "|    4 - Racing    |\n"
+					<< "+------------------+\n" << endl;
+
+				cin >> opt2;
+				InvalidInput(4, opt2);
+
+				switch (opt2)
+				{
+					case 1:
+						s->addBike(new Urban_simple_b(global_date));
+						break;
+
+					case 2:
+						s->addBike(new Urban_b(global_date));
+						break;
+
+					case 3:
+						s->addBike(new Child_b(global_date));
+						break;
+
+					case 4:
+						s->addBike(new Race_b(global_date));
+						break;
+				}
+				break;
+
+			case 2:
+				break;
+		}
+	} while (opt1 != 2 || s->getAvailableBikes().empty());
 
 	stations.push_back(s);
 }
@@ -232,7 +296,7 @@ void HQ::Reset_Members_MonthlyTime()
 
 void HQ::Rand_Localization()
 {
-	srand(static_cast<unsigned int> (time(NULL)));
+	srand(static_cast<int> (time(NULL)));
 
 	for (unsigned int i = 0; i < active_users.size(); i++)
 		active_users[i]->setLocalization(rand() % 15 + 1, rand() % 15 + 1);
@@ -286,8 +350,6 @@ void HQ::Main_Menu(Date &global_date)
 			<< "+----------------------------+\n" << endl;
 
 		cin >> opt;
-		cin.clear();
-		cin.ignore(1000, '\n');
 
 		InvalidInput(5, opt);
 
@@ -430,7 +492,7 @@ void HQ::Payment_Menu(Date g_date)
 		}
 		catch (Not_Active_User nau)
 		{
-			cout <<  endl << "User " << nau.getName() << "hasn't rented a bike yet.\n";
+			cout <<  endl << "User " << nau.getName() << " hasn't rented a bike yet.\n";
 		}
 		catch (Inexistent_Station is)
 		{
@@ -450,7 +512,7 @@ void HQ::Options_Menu(Date &global_date)
 		<< "+------------------------+\n"
 		<< "| 3 - Fast forward       |\n"
 		<< "+------------------------+\n"
-		<< "| 4 - Redistribute bikes |\n"
+		<< "| 4 - Go back            |\n"
 		<< "+------------------------+\n" << endl;
 
 	cin >> opt;
@@ -465,14 +527,13 @@ void HQ::Options_Menu(Date &global_date)
 			break;
 
 		case 2:
-			Add_remove_station_menu();
+			Add_remove_station_menu(global_date);
 			break;
 
 		case 3:
 			fast_forward_menu(*this, global_date);
 
 		case 4:
-
 			break;
 	}
 }
@@ -480,76 +541,93 @@ void HQ::Options_Menu(Date &global_date)
 void HQ::Add_remove_member_menu()
 {
 	int opt;
-	
-	cout << "+-------------------+\n"
-		<< "| 1 - Add member    |\n"
-		<< "+-------------------+\n"
-		<< "| 2 - Remove member |\n"
-		<< "+-------------------+\n" << endl;
 
-	cin >> opt;
-	InvalidInput(2, opt);
-	cin.clear();
-	cin.ignore(1000, '\n');
-
-	try
+	do
 	{
-		switch (opt)
+		cout << "+-------------------+\n"
+			<< "| 1 - Add member    |\n"
+			<< "+-------------------+\n"
+			<< "| 2 - Remove member |\n"
+			<< "+-------------------+\n" 
+			<< "| 3 - Go back       |\n"
+			<< "+-------------------+\n"<< endl;
+
+		cin >> opt;
+		InvalidInput(3, opt);
+		cin.clear();
+		cin.ignore(1000, '\n');
+
+		try
 		{
-		case 1:
-			addMember();
-			break;
-		case 2:
-			removeMember();
-			break;
+			switch (opt)
+			{
+			case 1:
+				addMember();
+				break;
+			case 2:
+				removeMember();
+				break;
+
+			case 3:
+				break;
+			}
 		}
-	}
-	catch (Another_member)
-	{
-		cout << "There's already another member with the same name.\n";
-	}
+		catch (Another_member)
+		{
+			cout << "There's already another member with the same name.\n";
+		}
+	} while (opt != 3);
+	
 }
 
-void HQ::Add_remove_station_menu()
+void HQ::Add_remove_station_menu(Date global_date)
 {
 	int opt;
-
-	cout << "+--------------------+\n"
-		<< "| 1 - Add station    |\n"
-		<< "+--------------------+\n"
-		<< "| 2 - Remove station |\n"
-		<< "+--------------------+\n" << endl;
-
-	cin >> opt;
-	InvalidInput(2, opt);
-	cin.clear();
-	cin.ignore(1000, '\n');
-
-	try
+	
+	do
 	{
-		switch (opt)
+		cout << "+--------------------+\n"
+			<< "| 1 - Add station    |\n"
+			<< "+--------------------+\n"
+			<< "| 2 - Remove station |\n"
+			<< "+--------------------+\n"
+			<< "| 3 - Go back        |\n"
+			<< "+--------------------+\n" << endl;
+
+		cin >> opt;
+		InvalidInput(3, opt);
+		cin.clear();
+		cin.ignore(1000, '\n');
+
+		try
 		{
-		case 1:
-			addStation();
-			break;
+			switch (opt)
+			{
+			case 1:
+				addStation(global_date);
+				break;
 
-		case 2:
-			removeStation();
-			break;
+			case 2:
+				removeStation();
+				break;
+
+			case 3:
+				break;
+			}
 		}
-	}
-	catch (Another_station as)
-	{
-		cout << "There's already a station named " << as.getName()
-			<< "at " << as.getLocalization().first << "," << as.getLocalization().second << endl;
-	}
+		catch (Another_station as)
+		{
+			cout << "There's already a station named " << as.getName()
+				<< " at " << as.getLocalization().first << "," << as.getLocalization().second << endl;
+		}
+	} while (opt != 3);
 }
 
 void HQ::RentBike()
 {
 	string name, conf, type;
 	int opt, p_im;
-	unsigned int im;
+	int im;
 	vector<Station *> vs;
 	User *u;
 	Station *closest_station;
@@ -718,7 +796,7 @@ void HQ::Check_Balance(Date g_date)
 	string username;
 
 	cout << "Username: ";
-	cin >> username;
+	getline(cin, username);
 	cout << endl;
 
 	while (cin.fail())
@@ -856,7 +934,7 @@ void HQ::Check_out(Date g_date)
 		st = find_Station(station_name);
 
 		if (st != -1)
-			s = stations[i];
+			s = stations[st];
 		else throw(Inexistent_Station(station_name));
 
 		if (member)
@@ -884,7 +962,7 @@ void HQ::read_info(Date global_date)
 	istringstream sstr;		
 	string txt_line, comma, bike_id, s_name;
 	int month_hours, i, month, day, hour, minute, max_spots;
-	unsigned int x, y;
+	int x, y;
 	bool member = false;
 	Bike *user_bike, *station_bike;
 	User *ready_active_user = new User("null");

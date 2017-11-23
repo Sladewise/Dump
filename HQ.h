@@ -27,7 +27,7 @@ public:
 	void Payment_Menu(Date global_date); //Interface related to the payment options
 	void Options_Menu(Date &global_date); //Interface with several options for testing purposes
 	void Add_remove_member_menu(); //Interface regarding the addition or removal of members
-	void Add_remove_station_menu(); //Interface regarding the addition or removal of stations
+	void Add_remove_station_menu(Date global_date); //Interface regarding the addition or removal of stations
 	void RentBike(); //Initiates the renting process of a bike
 	void Search_Station() const; //Searches for a particular station and, if found, returns information about it
 	void Nearest_Station(); //Returns information about the closest station to the user
@@ -36,7 +36,7 @@ public:
     void addMember(); //Adds a new member
 	void removeMember(); //Removes an existing member
     void addActiveUser(User *user); //Adds an active user
-    void addStation(); //Adds a new station
+    void addStation(Date global_date); //Adds a new station
 	void removeStation(); //Removes an existing station
 	vector<User *> getActiveUsers() const; //Returns the active users vector
 	vector<Member *> getMembers() const; //Returns the members vector

@@ -1,12 +1,15 @@
 Johny Cash
 4 , 5
 0
-Labaredas
-2 , 8
-0
 Eduardo L
-9 , 9
-0
+4 , 5
+7
 Johny Dep
 15 , 15
-30
+0
+Joao Alberto
+11 , 11
+0
+Eduardo S
+8 , 9
+0

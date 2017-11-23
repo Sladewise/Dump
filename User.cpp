@@ -10,7 +10,7 @@ double Member::price_month = 30;
 
 User::User(string username)
 {
-	srand(static_cast<unsigned int> (time(NULL)));
+	srand(static_cast<int> (time(NULL)));
 	Date null_date(1,1,0,0);
     Urban_simple_b *null_bike = new Urban_simple_b(null_date);
     bike = null_bike;
@@ -25,7 +25,7 @@ string User::getName() const
     return name;
 }
 
-pair<unsigned int, unsigned int> User::getLocalization() const
+pair<int, int> User::getLocalization() const
 {
 	return Localization;
 }
@@ -40,7 +40,7 @@ void User::setName(string new_name)
 	name = new_name;
 }
 
-void User::setLocalization(unsigned int x, unsigned int y)
+void User::setLocalization(int x, int y)
 {
 	Localization.first = x;
 	Localization.second = y;
@@ -71,7 +71,7 @@ void User::removeBike()
 Station* User::getClosestStation(vector<Station *> vs) const
 {
 	unsigned int i = 0, i_min = 0;
-	pair<unsigned int, unsigned int> stat_loc = vs[i]->getLocalization();
+	pair< int, int> stat_loc = vs[i]->getLocalization();
 	double min = sqrt(pow(stat_loc.first - Localization.first, 2) + pow(stat_loc.second - Localization.second, 2));
 
 	for (i; i < vs.size(); i++)

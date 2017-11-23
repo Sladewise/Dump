@@ -5,7 +5,6 @@
 #include <string>
 #include <vector>
 #include "Bike.h"
-
 using namespace std;
 
 class Station
@@ -13,14 +12,14 @@ class Station
     int no_max_spots;
 	string name;
     vector<Bike *> available_bikes;
-	pair <unsigned int, unsigned int> Localization;
+	pair <int, int> Localization;
 	
 public:
-    Station(int max_spots, string name, unsigned int x, unsigned int y);
+    Station(int max_spots, string name, int x, int y);
     bool findBike(string type) const;
 	void addBike(Bike *bk);
 	void removeBike(string bike_id);
-	pair<unsigned int, unsigned int> getLocalization() const;
+	pair<int, int> getLocalization() const;
 	vector<Bike *> getAvailableBikes() const;
 	string getName() const;
 	int getMaxSpots() const;
@@ -41,12 +40,12 @@ public:
 class Another_station
 {
 	string name;
-	pair<unsigned int, unsigned int> Localization;
+	pair<int, int> Localization;
 
 public:
-	Another_station(string nm, unsigned int x, unsigned int y);
+	Another_station(string nm, int x, int y);
 	string getName() const;
-	pair<unsigned int,unsigned int> getLocalization() const;
+	pair<int,int> getLocalization() const;
 };
 
 #endif
