@@ -1,11 +1,11 @@
 CMV
 15 , 15
 15
-CH , CH , UB ;
-Forro
+CH , CH , UB , US , US, US , UB , UB, RC , RC, ;
+Trindade
 4 , 5
 20
-CH , RC , RC , US , UB ;
+CH , RC , RC , US , UB , CH , RC , US , US , US ;
 CEPSA
 5 , 10
 15
