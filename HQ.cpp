@@ -259,33 +259,7 @@ void HQ::show_stations() const
 	int n_rc = 0, n_ub = 0, n_us = 0, n_ch = 0;
 
 	for (unsigned int i = 0; i < stations.size(); i++)
-	{
-		cout << stations[i]->getName() << endl
-			<< endl
-			<< "Coordinates: " << stations[i]->getLocalization().first << ", " << stations[i]->getLocalization().second
-			<< endl
-			<< "Maximum capacity: " << stations[i]->getMaxSpots() << endl
-			<< "No of available spots: " << stations[i]->getMaxSpots() - stations[i]->getAvailableBikes().size() << endl
-			<< "Available Bikes:\n";
-
-		for (unsigned int j = 0; j < stations[i]->getAvailableBikes().size(); j++)
-			if (stations[i]->getAvailableBikes()[j]->getID() == "US") //Might need to change
-				n_us++;
-			else
-				if (stations[i]->getAvailableBikes()[j]->getID() == "UB")
-					n_ub++;
-				else
-					if (stations[i]->getAvailableBikes()[j]->getID() == "CH")
-						n_ch++;
-					else
-						if (stations[i]->getAvailableBikes()[j]->getID() == "RC")
-							n_rc++;
-
-		cout << "Urban: " << n_ub << endl
-			<< "Simple urban: " << n_us << endl
-			<< "Child: " << n_ch << endl
-			<< "Racing: " << n_rc << endl << endl;
-	}
+		stations.at(i)->show_station();
 }
 
 void HQ::Reset_Members_MonthlyTime() 

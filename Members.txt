@@ -1,15 +1,9 @@
-Johny Cash
-4 , 5
-0
-Eduardo L
-4 , 5
-7
-Pedro Lopes
-15 , 15
-0
 Joao Alberto
 11 , 11
 0
-Eduardo S
+Eduardo Silva
 8 , 9
 0
+Pedro Lopes
+15 , 15
+170
